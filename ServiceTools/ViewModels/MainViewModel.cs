@@ -16,7 +16,9 @@ namespace ServiceTools.ViewModels
         {
             titleWindow = "Service Tools";
         }
-
+        /// <summary>
+        /// Заголовок главного окна
+        /// </summary>
         public string TitleWindow
         {
             get

@@ -14,8 +14,28 @@
     </Window.DataContext>
     <DockPanel>
         <!--Меню-->
-        <Menu>
-            
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл" VerticalContentAlignment="Center"/>
         </Menu>
+
+        <!--Строка состояния-->
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="Порт:"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <Grid DockPanel.Dock="Left">
+            <StackPanel Orientation="Vertical">
+                <!--Выбор портов-->
+                <ComboBox Tag="Text">
+
+                </ComboBox>
+                <!--Кнопка подключиться-->
+                <Button Content="Подключиться"/>
+                <!--Кнопка отправки одиночной команды-->
+                <Button Content="Одиночная команда"/>
+            </StackPanel>
+        </Grid>
     </DockPanel>
 </Window>
