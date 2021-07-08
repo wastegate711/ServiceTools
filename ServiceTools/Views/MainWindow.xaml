@@ -21,7 +21,7 @@
         <!--Строка состояния-->
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
-                <TextBlock Text="Порт:"/>
+                <TextBlock Text="{Binding Path=StatusPort}"/>
             </StatusBarItem>
         </StatusBar>
 
@@ -29,7 +29,11 @@
             <StackPanel Orientation="Vertical">
                 <!--Выбор портов-->
                 <ComboBox Tag="Text">
-
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
                 <!--Кнопка подключиться-->
                 <Button Content="Подключиться"/>
