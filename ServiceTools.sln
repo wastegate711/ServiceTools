@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31423.177
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools", "ServiceTools\ServiceTools.csproj", "{814BCD04-2603-454C-A878-3B8F34BB4853}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools", "ServiceTools\ServiceTools.csproj", "{8512D6BA-2974-4A73-BAE7-943C79499A53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{D1437DF0-1C26-4612-9A58-CA1D0D30EC7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools.Modules.SerialPort", "Modules\ServiceTools.Modules.SerialPort\ServiceTools.Modules.SerialPort.csproj", "{3726A878-1E27-4544-A563-014E249438A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +15,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{814BCD04-2603-454C-A878-3B8F34BB4853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{814BCD04-2603-454C-A878-3B8F34BB4853}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{814BCD04-2603-454C-A878-3B8F34BB4853}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{814BCD04-2603-454C-A878-3B8F34BB4853}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8512D6BA-2974-4A73-BAE7-943C79499A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8512D6BA-2974-4A73-BAE7-943C79499A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8512D6BA-2974-4A73-BAE7-943C79499A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8512D6BA-2974-4A73-BAE7-943C79499A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3726A878-1E27-4544-A563-014E249438A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3726A878-1E27-4544-A563-014E249438A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3726A878-1E27-4544-A563-014E249438A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3726A878-1E27-4544-A563-014E249438A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3726A878-1E27-4544-A563-014E249438A9} = {D1437DF0-1C26-4612-9A58-CA1D0D30EC7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8A7E9C2-536C-4A3D-8C4A-749B8DDFC841}
