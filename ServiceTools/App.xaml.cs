@@ -1,17 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Prism.Ioc;
+using Prism.Modularity;
+using ServiceTools.Modules.ControlBlock;
+using ServiceTools.Modules.SerialPort;
+using ServiceTools.Views;
 using System.Windows;
+using ServiceTools.Modules.PultBlock;
 
 namespace ServiceTools
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<MainWindow>();
+        }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+
+        }
+
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule<SerialPortModule>();
+            moduleCatalog.AddModule<ControlBlockModule>();
+            moduleCatalog.AddModule<PultBlockModule>();
+        }
     }
 }
