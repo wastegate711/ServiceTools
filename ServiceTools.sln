@@ -7,11 +7,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTools", "ServiceTool
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{D1437DF0-1C26-4612-9A58-CA1D0D30EC7C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTools.Modules.SerialPort", "Modules\ServiceTools.Modules.SerialPort\ServiceTools.Modules.SerialPort.csproj", "{3726A878-1E27-4544-A563-014E249438A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTools.Modules.ControlBlock", "Modules\ServiceTools.Modules.ControlBlock\ServiceTools.Modules.ControlBlock.csproj", "{C97F47DA-67F0-4715-BF56-9E05CE603D7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools.Modules.ControlBlock", "Modules\ServiceTools.Modules.ControlBlock\ServiceTools.Modules.ControlBlock.csproj", "{C97F47DA-67F0-4715-BF56-9E05CE603D7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTools.Modules.PultBlock", "Modules\ServiceTools.Modules.PultBlock\ServiceTools.Modules.PultBlock.csproj", "{F7D8C65F-DC1E-46A2-BDBB-8784E76AAA9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools.Modules.PultBlock", "Modules\ServiceTools.Modules.PultBlock\ServiceTools.Modules.PultBlock.csproj", "{F7D8C65F-DC1E-46A2-BDBB-8784E76AAA9D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F1324697-D6B2-43F4-8987-534FB9CF0BAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools.Services.ControlBlock", "Services\ServiceTools.Services.ControlBlock\ServiceTools.Services.ControlBlock.csproj", "{88572DAD-FEC3-461C-AE78-5CC3159FC481}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools.Services.PultBlock", "Services\ServiceTools.Services.PultBlock\ServiceTools.Services.PultBlock.csproj", "{C104DAED-3761-4FF1-9ABA-B94D5603FA65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools.Services.SerialPort", "Services\ServiceTools.Services.SerialPort\ServiceTools.Services.SerialPort.csproj", "{70C3F3F4-9130-44D7-A033-A535F2DF2F41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTools.Core", "ServiceTools.Core\ServiceTools.Core.csproj", "{DA26F661-A591-49B1-B8D7-44FCB362E047}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +31,6 @@ Global
 		{8512D6BA-2974-4A73-BAE7-943C79499A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8512D6BA-2974-4A73-BAE7-943C79499A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8512D6BA-2974-4A73-BAE7-943C79499A53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3726A878-1E27-4544-A563-014E249438A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3726A878-1E27-4544-A563-014E249438A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3726A878-1E27-4544-A563-014E249438A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3726A878-1E27-4544-A563-014E249438A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C97F47DA-67F0-4715-BF56-9E05CE603D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C97F47DA-67F0-4715-BF56-9E05CE603D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C97F47DA-67F0-4715-BF56-9E05CE603D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,14 +39,32 @@ Global
 		{F7D8C65F-DC1E-46A2-BDBB-8784E76AAA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7D8C65F-DC1E-46A2-BDBB-8784E76AAA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7D8C65F-DC1E-46A2-BDBB-8784E76AAA9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88572DAD-FEC3-461C-AE78-5CC3159FC481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88572DAD-FEC3-461C-AE78-5CC3159FC481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88572DAD-FEC3-461C-AE78-5CC3159FC481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88572DAD-FEC3-461C-AE78-5CC3159FC481}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C104DAED-3761-4FF1-9ABA-B94D5603FA65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C104DAED-3761-4FF1-9ABA-B94D5603FA65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C104DAED-3761-4FF1-9ABA-B94D5603FA65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C104DAED-3761-4FF1-9ABA-B94D5603FA65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70C3F3F4-9130-44D7-A033-A535F2DF2F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70C3F3F4-9130-44D7-A033-A535F2DF2F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70C3F3F4-9130-44D7-A033-A535F2DF2F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70C3F3F4-9130-44D7-A033-A535F2DF2F41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA26F661-A591-49B1-B8D7-44FCB362E047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA26F661-A591-49B1-B8D7-44FCB362E047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA26F661-A591-49B1-B8D7-44FCB362E047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA26F661-A591-49B1-B8D7-44FCB362E047}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3726A878-1E27-4544-A563-014E249438A9} = {D1437DF0-1C26-4612-9A58-CA1D0D30EC7C}
 		{C97F47DA-67F0-4715-BF56-9E05CE603D7D} = {D1437DF0-1C26-4612-9A58-CA1D0D30EC7C}
 		{F7D8C65F-DC1E-46A2-BDBB-8784E76AAA9D} = {D1437DF0-1C26-4612-9A58-CA1D0D30EC7C}
+		{88572DAD-FEC3-461C-AE78-5CC3159FC481} = {F1324697-D6B2-43F4-8987-534FB9CF0BAD}
+		{C104DAED-3761-4FF1-9ABA-B94D5603FA65} = {F1324697-D6B2-43F4-8987-534FB9CF0BAD}
+		{70C3F3F4-9130-44D7-A033-A535F2DF2F41} = {F1324697-D6B2-43F4-8987-534FB9CF0BAD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8A7E9C2-536C-4A3D-8C4A-749B8DDFC841}
