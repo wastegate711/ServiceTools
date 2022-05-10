@@ -4,6 +4,8 @@ using ServiceTools.Modules.ControlBlock;
 using ServiceTools.Views;
 using System.Windows;
 using ServiceTools.Modules.PultBlock;
+using ServiceTools.Services.SerialPort.Interfaces;
+using ServiceTools.Services.SerialPort.Services;
 
 namespace ServiceTools
 {
@@ -19,7 +21,7 @@ namespace ServiceTools
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterSingleton<IMessageQueue, MessageQueue>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
