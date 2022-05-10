@@ -105,7 +105,7 @@ namespace ServiceTools.Services.SerialPort.Tools
         /// </summary>
         /// <param name="data">Число которое нужно преобразовать.</param>
         /// <returns>Возвращает массив из 2 элементов.</returns>
-        private static byte[] ToArrayCrc(this ushort data)
+        public static byte[] ToArrayCrc(this ushort data)
         {
             byte[] result = new byte[2];
             result[0] = (byte)(data >> 8);
