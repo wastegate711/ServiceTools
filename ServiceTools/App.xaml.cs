@@ -26,6 +26,7 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<IMessageQueue, MessageQueue>();
             containerRegistry.RegisterSingleton<ISerialPortService, Serial_Port>();
             containerRegistry.Register<IReceivData, ReceivData>();
+            containerRegistry.RegisterSingleton<IPortManager, PortManager>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

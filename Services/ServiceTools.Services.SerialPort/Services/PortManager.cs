@@ -11,9 +11,10 @@ using Timer = System.Timers.Timer;
 
 namespace ServiceTools.Services.SerialPort.Services
 {
-    public class SendData : ISendData
+    public class PortManager : IPortManager
     {
         private readonly ISerialPortService _serialPortService = null!;
+        private readonly IReceivData _receivData;
         private readonly IMessageQueue _messageQueue;
 
         private Timer _timeOutTimer = null!;
@@ -22,9 +23,12 @@ namespace ServiceTools.Services.SerialPort.Services
         public double TimeOutInterval { get; set; } = 3000;//TODO заменить на глобальные настройки.
         public int SendDataInterval { get; set; } = 3000;//TODO заменить на глобальные настройки.
 
-        public SendData(IMessageQueue messageQueue, ISerialPortService serialPortService)
+        public PortManager(IMessageQueue messageQueue,
+            ISerialPortService serialPortService,
+            IReceivData receivData)
         {
             _serialPortService = serialPortService;
+            _receivData = receivData;
             _messageQueue = messageQueue;
             Initialization(); //TODO удалить
         }
@@ -81,7 +85,7 @@ namespace ServiceTools.Services.SerialPort.Services
             }
         }
 
-        ~SendData()
+        ~PortManager()
         {
             Dispose();
         }
@@ -101,6 +105,7 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <param name="obj"></param>
         private void SerialPortService_DataReceived(byte[] obj)
         {
+            _receivData.ReadData(obj);
             _timeOutTimer.Stop();
         }
         // ведет постоянную отправку сообщений в сеть по таймеру.

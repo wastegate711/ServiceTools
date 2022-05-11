@@ -1,6 +1,6 @@
 ﻿namespace ServiceTools.Services.SerialPort.Interfaces;
 
-public interface ISendData
+public interface IPortManager
 {
     /// <summary>
     /// Начальная инициализация таймеров и настроек порта.

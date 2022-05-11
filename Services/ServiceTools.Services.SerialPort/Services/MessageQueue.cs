@@ -24,8 +24,15 @@ namespace ServiceTools.Services.SerialPort.Services
         private int MessageCount
         {
             get => messageCount;
-            set => messageCount = messageCount != int.MaxValue ? value : 0;
+            set
+            {//если произошло переполнение счетчика обнуляем его.
+                if (messageCount == int.MaxValue)
+                    messageCount = 0;
+
+                messageCount = value;
+            }
         }
+
         /// <summary>
         /// Возвращает количество сообщений в очереди.
         /// </summary>

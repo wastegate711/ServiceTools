@@ -1,4 +1,5 @@
 ﻿using ServiceTools.Services.SerialPort.Interfaces;
+using ServiceTools.Services.SerialPort.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,15 @@ namespace ServiceTools.Services.SerialPort.Services
 {
     public class ReceivData : IReceivData
     {
+        private bool accessFlag = false;
         ///<inheritdoc/>
         public void ReadData(byte[] buf)
         {
-
+            if (buf.CompareCrc16())
+            {
+                accessFlag = true;
+            }
         }
+
     }
 }
