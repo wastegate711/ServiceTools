@@ -1,19 +1,41 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using SerialPortService.Abstractions;
+using ServiceTools.Services.SerialPort.Interfaces;
 
 namespace ServiceTools.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+        private readonly IPortManager _portManager;
+
+        public MainWindowViewModel(IPortManager portManager)
+        {
+            _portManager = portManager;
+        }
+
+        #region Заголовок окна
+
         private string _title = "Prism Application";
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
-        public MainWindowViewModel()
+        #endregion
+
+        #region Команда инициализации
+        //Обрабатывает событие загрузки окна.
+        private DelegateCommand _initializeCommand;
+        public DelegateCommand InitializeCommand =>
+            _initializeCommand ??= new DelegateCommand(InitializeStartApp);
+
+        private void InitializeStartApp()
         {
-
+            _portManager.Initialization();//инициализация таймеров и СОМ порта
         }
+
+        #endregion
     }
 }
