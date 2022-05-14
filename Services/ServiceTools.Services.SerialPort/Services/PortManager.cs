@@ -30,7 +30,7 @@ namespace ServiceTools.Services.SerialPort.Services
             _serialPortService = serialPortService;
             _receivData = receivData;
             _messageQueue = messageQueue;
-            Initialization(); //TODO удалить
+            
         }
         
         /// <inheritdoc/>
@@ -73,6 +73,7 @@ namespace ServiceTools.Services.SerialPort.Services
                 //создаем массив, вычисляем для него CRC16 и отправляем в порт.
                 byte[] dataCrc = new byte[data.Length + 2];
                 var crc = data.GetCrc16().ToArrayCrc();
+                data.CopyTo(dataCrc, 0);
                 dataCrc[^2] = crc[0];
                 dataCrc[^1] = crc[1];
                 _serialPortService.Write(dataCrc);
@@ -112,6 +113,7 @@ namespace ServiceTools.Services.SerialPort.Services
         private void SendDataTimer_Elapsed(object? sender, ElapsedEventArgs e)
         {
             // извлекает сообщение из очереди сообщений и отправляет его устройству
+           // _sendDataTimer.Stop();
             WriteData(_messageQueue.GetMessageFromQueue());
         }
 
