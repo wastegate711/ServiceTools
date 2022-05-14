@@ -11,6 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Modules\ServiceTools.Modules.ControlBlock\ServiceTools.Modules.ControlBlock.csproj" />
     <ProjectReference Include="..\Modules\ServiceTools.Modules.PultBlock\ServiceTools.Modules.PultBlock.csproj" />
-    <ProjectReference Include="..\Modules\ServiceTools.Modules.SerialPort\ServiceTools.Modules.SerialPort.csproj" />
+    <ProjectReference Include="..\Services\ServiceTools.Services.SerialPort\ServiceTools.Services.SerialPort.csproj" />
   </ItemGroup>
 </Project>
