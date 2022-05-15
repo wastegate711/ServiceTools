@@ -5,12 +5,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
+             xmlns:viewmodels="clr-namespace:ServiceTools.Modules.ControlBlock.ViewModels"
              d:DesignHeight="300" d:DesignWidth="300"
-             xmlns:prism="http://prismlibrary.com/"
+             xmlns:prism="http://prismlibrary.com/" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:ViewAViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True" >
-    <Grid>
-        <TextBlock Text="{Binding Message}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" />
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Vertical">
+            <!--Серийный номер-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Серийный номер:"
+                       VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding SerialNumber}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+            <!--Дата/Время-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Дата/Время:"
+                       VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding DateTimeDevice}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+            
+        </StackPanel>
+        <TextBox DockPanel.Dock="Bottom"
+                 Text="01 02 01 08 00 00 AD DF"/>
+    </DockPanel>
 </UserControl>
