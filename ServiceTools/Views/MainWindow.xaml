@@ -8,17 +8,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:core="clr-namespace:ServiceTools.Core;assembly=ServiceTools.Core"
         Title="{Binding Title}"
-        Height="350" Width="525" 
+        Height="550" Width="525" 
+        WindowStartupLocation="CenterScreen"
         x:Name="ServiceToolsWindow"
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
+    <!--Тригер события загрузки окна(без него событие не срабатывает)-->
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding InitializeCommand}"
                                    CommandParameter="{Binding ElementName=ServiceToolsWindow}"/>
         </b:EventTrigger>
     </b:Interaction.Triggers>
-    <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
-    </Grid>
+    <DockPanel>
+        <!--Меню-->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File"/>
+            <MenuItem Header="Test"/>
+        </Menu>
+
+        <!--Статус бар-->
+        <StatusBar DockPanel.Dock="Bottom">
+
+        </StatusBar>
+
+        <!--Вкладки-->
+        <TabControl>
+            <!--Вкладка Блок управления-->
+            <TabItem prism:RegionManager.RegionName="{x:Static core:RegionNames.ControlBlockTab}"
+                     Header="Блок управления"/>
+        </TabControl>
+    </DockPanel>
 </Window>
