@@ -4,14 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceTools.Services.SerialPort.Interfaces;
+using ServiceTools.Core.Extensions;
+using ServiceTools.Services.SerialPort.Tools;
 
 namespace ServiceTools.Services.SerialPort.Services
 {
     public class MessageQueue : IMessageQueue
     {
+        private readonly GlobalSettings _globalSettings;
+
         /*
          * Формат сообщений
-         * [адрес ведущего 1 байт][адрес ведомого 1 байт][команда 1 байт][длина сообщения 1 байт][данные 0-251 байт][CRC16-2 байта]
+         * [0] = [адрес ведущего 1 байт]
+         * [1] = [адрес ведомого 1 байт]
+         * [2] = [команда 1 байт]
+         * [3] = [длина сообщения 1 байт]
+         * [4] = [данные 0-251 байт]
+         * [5] = [CRC16-2 байта]
          */
         private Queue<byte[]> _queue = new Queue<byte[]>();
         private byte[] controlBlockData = new byte[6];
@@ -38,8 +47,9 @@ namespace ServiceTools.Services.SerialPort.Services
         /// </summary>
         public int QueueCount => _queue.Count;
 
-        public MessageQueue()
+        public MessageQueue(GlobalSettings globalSettings)
         {
+            _globalSettings = globalSettings;
             //Базовый запрос состояния блока управления.
             controlBlockData[0] = 0x01;
             controlBlockData[1] = 0x02;
@@ -65,6 +75,25 @@ namespace ServiceTools.Services.SerialPort.Services
             _queue.Enqueue(data);
         }
 
+        byte[] ConstructorRequest(byte[] data)
+        {
+            return null; //TODO необходимо доделать.
+        }
+        /// <inheritdoc/>
+        public byte[] ConstructorCommand(byte[] data, byte address, byte cmd)
+        {
+            byte[] temp = new byte[data.Length + 6];
+            temp[0] = _globalSettings.CompAddress;
+            temp[1] = address;
+            temp[2] = cmd;
+            temp[3] = (byte)temp.Length;
+            Array.Copy(data, 0, temp, 4, data.Length);
+            byte[] crc = temp.GetCrc16().ToArrayCrc();
+            temp[^2] = crc[0];
+            temp[^1] = crc[1];
+
+            return temp;
+        }
         /// <summary>
         /// Возвращает из очереди сообщений первое сообщение и удаляет его из очереди,
         /// если очередь пуста вернет базовое сообщение
