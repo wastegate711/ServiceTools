@@ -10,4 +10,8 @@
     <PackageReference Include="West.SerialPortService" Version="1.0.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\ServiceTools.Core\ServiceTools.Core.csproj" />
+  </ItemGroup>
+
 </Project>
