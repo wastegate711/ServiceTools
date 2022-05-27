@@ -13,14 +13,90 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Top"
                     Orientation="Vertical">
+            <!--Клапан сброса-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Клапан сброса"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding ValveDropBrush}"
+                        Command="{Binding ValveDropCommand}"
+                        VerticalAlignment="Center"/>
+            </StackPanel>
+            <!--Дозатор Пена-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Дозатор Пена"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding DispenserFoamBrush}"
+                        Command="{Binding DispenserFoamCommand}"
+                        VerticalAlignment="Center"/>
+            </StackPanel>
+            <!--Дозатор Воск-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Дозатор Воск"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding DispenserVoskBrush}"
+                        Command="{Binding DispenserVoskCommand}"
+                        VerticalAlignment="Center"/>
+            </StackPanel>
+            <!--Датчик потока-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Датчик потока"/>
+            </StackPanel>
+            <!--Клапан Воздух-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Клапан Воздух"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding ValveAirBrush}"
+                        Command="{Binding ValveAirCommand}"
+                        VerticalAlignment="Center"/>
+            </StackPanel>
+            <!--Клапан Средство от насекомых-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Клапан Средство от насекомых"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding ValveInsectBrush}"
+                        Command="{Binding ValveInsectCommand}"
+                        VerticalAlignment="Center"/>
+            </StackPanel>
+            <!--Клапан Пена-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Клапан пена"/>
+                <Button Height="10"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Background="{Binding ValveFoamBrush}"
+                        Command="{Binding ValveFoamCommand}"/>
+            </StackPanel>
+            <!--Клапан Осмос-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Клапан Осмос"/>
+                <Button Height="10"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Background="{Binding Path=ValveOsmosBrush}"
+                        Command="{Binding Path=ValveOsmosCommand}"/>
+            </StackPanel>
             <!--Клапан Холодная вода-->
-<StackPanel Orientation="Horizontal">
-    <Label Content="Клапан Холодная вода"/>
-    <Button Height="10"
-            Width="30"
-            Background="{Binding CoolWaterBrush}"
-            VerticalAlignment="Center"/>
-</StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Клапан Холодная вода"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding CoolWaterBrush}"
+                        VerticalAlignment="Center"
+                        Command="{Binding CoolWaterCommand}"/>
+            </StackPanel>
+            <!--Клапан горячая вода-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Клапан горячая вода"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding HotWaterBrush}"
+                        Command="{Binding ValveHotWaterCommand}"/>
+            </StackPanel>
             <!--Серийный номер-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Серийный номер:"
@@ -35,7 +111,7 @@
                 <TextBlock Text="{Binding DateTimeDevice}"
                            VerticalAlignment="Center"/>
             </StackPanel>
-            
+
         </StackPanel>
         <TextBox DockPanel.Dock="Bottom"
                  Text="01 02 01 08 00 00 AD DF"/>

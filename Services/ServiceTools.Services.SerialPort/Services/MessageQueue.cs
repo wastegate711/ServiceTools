@@ -82,15 +82,15 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <inheritdoc/>
         public byte[] ConstructorCommand(byte[] data, byte address, byte cmd)
         {
-            byte[] temp = new byte[data.Length + 6];
+            byte[] temp = new byte[data.Length + 4];
             temp[0] = _globalSettings.CompAddress;
             temp[1] = address;
             temp[2] = cmd;
-            temp[3] = (byte)temp.Length;
+            temp[3] = (byte)((byte)temp.Length + 2);
             Array.Copy(data, 0, temp, 4, data.Length);
-            byte[] crc = temp.GetCrc16().ToArrayCrc();
-            temp[^2] = crc[0];
-            temp[^1] = crc[1];
+            //byte[] crc = temp.GetCrc16().ToArrayCrc();
+            //temp[^2] = crc[0];
+            //temp[^1] = crc[1];
 
             return temp;
         }
