@@ -7,6 +7,7 @@
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\ServiceTools.Services.SerialPort\ServiceTools.Services.SerialPort.csproj" />
     <ProjectReference Include="..\..\ServiceTools.Core\ServiceTools.Core.csproj" />
   </ItemGroup>
 </Project>

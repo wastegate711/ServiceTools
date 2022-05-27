@@ -8,6 +8,7 @@ using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.SerialPort.Services;
 using SerialPortService.Abstractions;
 using SerialPortService.Services;
+using ServiceTools.Core.Extensions;
 
 namespace ServiceTools
 {
@@ -23,6 +24,7 @@ namespace ServiceTools
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<GlobalSettings>();
             containerRegistry.RegisterSingleton<IMessageQueue, MessageQueue>();
             containerRegistry.RegisterSingleton<ISerialPortService, Serial_Port>();
             containerRegistry.Register<IReceivData, ReceivData>();
