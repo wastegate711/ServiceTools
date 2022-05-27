@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +77,11 @@ namespace ServiceTools.Services.SerialPort.Services
                 data.CopyTo(dataCrc, 0);
                 dataCrc[^2] = crc[0];
                 dataCrc[^1] = crc[1];
+                foreach (byte item in dataCrc)
+                {
+                    Debug.WriteLine("Отправка данных -->{0}", item);
+                }
+                
                 _serialPortService.Write(dataCrc);
                 // включается таймер отсчета таймаута, на случай если ответ не придет.
                 _timeOutTimer.Start();
