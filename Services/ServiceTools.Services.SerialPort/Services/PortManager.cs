@@ -12,7 +12,7 @@ using Timer = System.Timers.Timer;
 
 namespace ServiceTools.Services.SerialPort.Services
 {
-    public class PortManager : IPortManager
+    public class PortManager : IPortManager, IDisposable
     {
         private readonly ISerialPortService _serialPortService = null!;
         private readonly IReceivData _receivData;

@@ -82,7 +82,8 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <inheritdoc/>
         public byte[] ConstructorCommand(byte[] data, byte address, byte cmd)
         {
-            byte[] temp = new byte[data.Length + 4];
+            byte[] temp = new byte[data.Length + 4]; //+4 это байты которые необходимо добавить к общей длине посылки,
+            // это адрес ведущего, адрес ведомого, команда и длина сообщения.
             temp[0] = _globalSettings.CompAddress;
             temp[1] = address;
             temp[2] = cmd;
