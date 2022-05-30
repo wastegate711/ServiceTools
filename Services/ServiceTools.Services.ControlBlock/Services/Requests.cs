@@ -68,5 +68,164 @@ namespace ServiceTools.Services.ControlBlock.Services
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveOsmos));
         }
+
+        /// <summary>
+        /// Управляет состоянием клапана Пена
+        /// </summary>
+        /// <param name="state">Состояние Off/On</param>
+        public void SetValveFoam(State state)
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.SetValveFoam));
+        }
+
+        /// <summary>
+        /// Управляет состоянием клапана Сброс давления.
+        /// </summary>
+        /// <param name="state">Состояние Off/On</param>
+        public void SetValveDrop(State state)
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.SetValveDrop));
+        }
+
+        /// <summary>
+        /// Управляет состоянием клапана Средство от насекомых
+        /// </summary>
+        /// <param name="state">Состояние Off/On</param>
+        public void SetValveInsect(State state)
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.SetValveInsect));
+        }
+
+        /// <summary>
+        /// Управляет состоянием дозатора Пена
+        /// </summary>
+        /// <param name="state">Состояние Off/On</param>
+        public void SetDispenserFoam(State state)
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.SetDispenserFoam));
+        }
+
+        /// <summary>
+        /// Управляет состоянием дозатора Воск
+        /// </summary>
+        /// <param name="state">Состояние Off/On</param>
+        public void SetDispenserVosk(State state)
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.SetDispenserVosk));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния клапана Холодная вода
+        /// </summary>
+        public void GetValveCoolWater()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetValveCoolWater));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния клапана Горячая вода
+        /// </summary>
+        public void GetValveHotWater()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetValveHotWater));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния клапана Осмос
+        /// </summary>
+        public void GetValveOsmos()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetValveOsmos));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния клапана Воздух
+        /// </summary>
+        public void GetValveAir()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetValveAir));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния клапана Средство от насекомых
+        /// </summary>
+        public void GetValveInsect()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetValveInsect));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния клапана Пена
+        /// </summary>
+        public void GetValveFoam()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetValveFoam));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния клапана Сброс давления
+        /// </summary>
+        public void GetValveDrop()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetValveDrop));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния дозатора Пена
+        /// </summary>
+        public void GetDispenserFoam()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetDispenserFoam));
+        }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния дозатора Воск
+        /// </summary>
+        public void GetDispenserVosk()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetDispenserVosk));
+        }
     }
 }
