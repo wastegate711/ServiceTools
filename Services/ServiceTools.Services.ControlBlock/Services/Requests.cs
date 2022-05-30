@@ -227,5 +227,16 @@ namespace ServiceTools.Services.ControlBlock.Services
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetDispenserVosk));
         }
+
+        /// <summary>
+        /// Отправляет команду запроса состояния датчика потока
+        /// </summary>
+        public void GetSensorStream()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetSensorStream));
+        }
     }
 }

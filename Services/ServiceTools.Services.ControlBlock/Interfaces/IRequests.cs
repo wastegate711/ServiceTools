@@ -102,4 +102,9 @@ public interface IRequests
     /// Отправляет команду запроса состояния дозатора Воск
     /// </summary>
     public void GetDispenserVosk();
+
+    /// <summary>
+    /// Отправляет команду запроса состояния датчика потока
+    /// </summary>
+    public void GetSensorStream();
 }
