@@ -51,15 +51,15 @@ namespace ServiceTools.Services.SerialPort.Services
         {
             _globalSettings = globalSettings;
             //Базовый запрос состояния блока управления.
-            controlBlockData[0] = 0x01;
-            controlBlockData[1] = 0x02;
+            controlBlockData[0] = _globalSettings.CompAddress;
+            controlBlockData[1] = _globalSettings.ControlBlockAddress;
             controlBlockData[2] = 0x01;
             controlBlockData[3] = 0x08;
             controlBlockData[4] = 0x00;
             controlBlockData[5] = 0x00;
             //Базовый запрос состояния пульта.
-            pultData[0] = 0x01;
-            pultData[1] = 0x03;
+            pultData[0] = _globalSettings.CompAddress;
+            pultData[1] = _globalSettings.PultAddress;
             pultData[2] = 0x01;
             pultData[3] = 0x08;
             pultData[4] = 0x00;

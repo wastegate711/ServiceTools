@@ -109,10 +109,10 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <summary>
         /// Событие срабатывает при поступлении данных в порт.
         /// </summary>
-        /// <param name="obj"></param>
-        private void SerialPortService_DataReceived(byte[] obj)
+        /// <param name="data"></param>
+        private void SerialPortService_DataReceived(byte[] data)
         {
-            _receivData.ReadData(obj);
+            _receivData.ReadData(data);
             _timeOutTimer.Stop();
         }
         // ведет постоянную отправку сообщений в сеть по таймеру.
