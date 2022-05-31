@@ -13,6 +13,14 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Top"
                     Orientation="Vertical">
+            <!--Кнопка Запрос серийного номера-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Запрос SN"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding SerialNumberBrush}"
+                        Command="{Binding SerialNumberCommand}"/>
+            </StackPanel>
             <!--Клапан сброса-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Клапан сброса"/>

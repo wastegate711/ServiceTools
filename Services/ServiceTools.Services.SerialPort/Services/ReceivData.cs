@@ -2,6 +2,7 @@
 using ServiceTools.Services.SerialPort.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +27,9 @@ namespace ServiceTools.Services.SerialPort.Services
 
         public ReceivData()
         {
-            
+
         }
-        
+
         ///<inheritdoc/>
         public void ReadData(byte[] buf)
         {
@@ -37,10 +38,22 @@ namespace ServiceTools.Services.SerialPort.Services
                 switch (buf[1])//определяем от какого блока пришли данные.
                 {
                     case controlBlockAddr:
+                        Debug.Write("Входящие данные<--");
 
+                        foreach (byte item in buf)
+                        {
+                            Debug.Write(item.ToString("X2") + " ");
+                        }
+
+                        Debug.WriteLine("");
                         break;
                     case pultBlockAddr:
+                        foreach (byte item in buf)
+                        {
+                            Debug.Write($"Входящие данные<--{item}");
+                        }
 
+                        Debug.WriteLine($"Входящие данные<--{buf}");
                         break;
                 }
             }

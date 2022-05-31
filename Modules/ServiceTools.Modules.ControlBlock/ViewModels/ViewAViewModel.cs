@@ -152,7 +152,34 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         }
 
         #endregion
+
+        #region Цвет кнопки Запрос серийного номера устройства
+
+        private SolidColorBrush _serialNumberBrush = Brushes.Yellow;
+        public SolidColorBrush SerialNumberBrush
+        {
+            get => _serialNumberBrush;
+            set => SetProperty(ref _serialNumberBrush, value);
+        }
+
+        #endregion
         //Команды
+
+        #region Запрос серийного номера устройства
+
+        private DelegateCommand _serialNumberCommand;
+        public DelegateCommand SerialNumberCommand =>
+            _serialNumberCommand ?? (_serialNumberCommand = new DelegateCommand(ExecuteSerialNumber));
+
+        void ExecuteSerialNumber()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetSerialNumber));
+        }
+
+        #endregion
 
         #region Управление клапаном сброса
 
