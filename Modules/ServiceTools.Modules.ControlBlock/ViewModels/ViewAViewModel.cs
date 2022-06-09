@@ -26,6 +26,18 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
             DateTimeDevice = DateTime.Now.ToString(CultureInfo.CurrentCulture);
         }
         //Свойства
+
+        #region Версия SW
+
+        private string _versionSwPult;
+        public string VersionSwPult
+        {
+            get => _versionSwPult;
+            set => SetProperty(ref _versionSwPult, value);
+        }
+
+        #endregion
+
         #region Серийный номер
 
         private string _serialNumber = "123";
@@ -152,7 +164,47 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         }
 
         #endregion
+
+        #region Цвет кнопки Запрос серийного номера устройства
+
+        private SolidColorBrush _serialNumberBrush = Brushes.Yellow;
+        public SolidColorBrush SerialNumberBrush
+        {
+            get => _serialNumberBrush;
+            set => SetProperty(ref _serialNumberBrush, value);
+        }
+
+        #endregion
         //Команды
+
+        #region Версия SW команда
+
+        private DelegateCommand _versionSwCommand;
+        public DelegateCommand VersionSwCommand =>
+            _versionSwCommand ?? (_versionSwCommand = new DelegateCommand(ExecuteVersionSW));
+
+        private void ExecuteVersionSW()
+        {
+
+        }
+
+        #endregion
+
+        #region Запрос серийного номера устройства
+
+        private DelegateCommand _serialNumberCommand;
+        public DelegateCommand SerialNumberCommand =>
+            _serialNumberCommand ?? (_serialNumberCommand = new DelegateCommand(ExecuteSerialNumber));
+
+        void ExecuteSerialNumber()
+        {
+            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetSerialNumber));
+        }
+
+        #endregion
 
         #region Управление клапаном сброса
 
@@ -170,7 +222,7 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         #endregion
 
-        #region Упревление дозатором Воск
+        #region Управление дозатором Воск
 
         private DelegateCommand _dispenserVoskCommand;
         public DelegateCommand DispenserVoskCommand =>
