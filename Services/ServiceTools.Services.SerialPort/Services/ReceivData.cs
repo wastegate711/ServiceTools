@@ -38,7 +38,7 @@ namespace ServiceTools.Services.SerialPort.Services
                 switch (buf[1])//определяем от какого блока пришли данные.
                 {
                     case controlBlockAddr:
-                        Debug.Write("Входящие данные<--");
+                        Debug.Write("Входящие данные БУ<--\t");
 
                         foreach (byte item in buf)
                         {
@@ -48,12 +48,14 @@ namespace ServiceTools.Services.SerialPort.Services
                         Debug.WriteLine("");
                         break;
                     case pultBlockAddr:
+                        Debug.Write("Входящие данные БП<--\t");
+
                         foreach (byte item in buf)
                         {
-                            Debug.Write($"Входящие данные<--{item}");
+                            Debug.Write(item.ToString("X2") + " ");
                         }
 
-                        Debug.WriteLine($"Входящие данные<--{buf}");
+                        Debug.WriteLine("");
                         break;
                 }
             }

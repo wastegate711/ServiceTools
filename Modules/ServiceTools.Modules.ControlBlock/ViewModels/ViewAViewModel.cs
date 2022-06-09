@@ -26,6 +26,18 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
             DateTimeDevice = DateTime.Now.ToString(CultureInfo.CurrentCulture);
         }
         //Свойства
+
+        #region Версия SW
+
+        private string _versionSwPult;
+        public string VersionSwPult
+        {
+            get => _versionSwPult;
+            set => SetProperty(ref _versionSwPult, value);
+        }
+
+        #endregion
+
         #region Серийный номер
 
         private string _serialNumber = "123";
@@ -165,6 +177,19 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         #endregion
         //Команды
 
+        #region Версия SW команда
+
+        private DelegateCommand _versionSwCommand;
+        public DelegateCommand VersionSwCommand =>
+            _versionSwCommand ?? (_versionSwCommand = new DelegateCommand(ExecuteVersionSW));
+
+        private void ExecuteVersionSW()
+        {
+
+        }
+
+        #endregion
+
         #region Запрос серийного номера устройства
 
         private DelegateCommand _serialNumberCommand;
@@ -197,7 +222,7 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         #endregion
 
-        #region Упревление дозатором Воск
+        #region Управление дозатором Воск
 
         private DelegateCommand _dispenserVoskCommand;
         public DelegateCommand DispenserVoskCommand =>

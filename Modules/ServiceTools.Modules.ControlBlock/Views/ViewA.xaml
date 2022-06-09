@@ -105,6 +105,11 @@
                         Background="{Binding HotWaterBrush}"
                         Command="{Binding ValveHotWaterCommand}"/>
             </StackPanel>
+            <!--Версия программы-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Версия программы:"/>
+                <TextBlock Text="{Binding VersionSwPult}"/>
+            </StackPanel>
             <!--Серийный номер-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Серийный номер:"

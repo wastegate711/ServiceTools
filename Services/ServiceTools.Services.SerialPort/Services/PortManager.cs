@@ -31,9 +31,9 @@ namespace ServiceTools.Services.SerialPort.Services
             _serialPortService = serialPortService;
             _receivData = receivData;
             _messageQueue = messageQueue;
-            
+
         }
-        
+
         /// <inheritdoc/>
         public void Initialization()
         {
@@ -77,11 +77,18 @@ namespace ServiceTools.Services.SerialPort.Services
                 data.CopyTo(dataCrc, 0);
                 dataCrc[^2] = crc[0];
                 dataCrc[^1] = crc[1];
+
+                if (dataCrc[1] == 0x02)
+                    Debug.Write("Отправка данных БУ -->\t");
+                else if (dataCrc[1] == 0x03)
+                    Debug.Write("Отправка данных БП -->\t");
+
                 foreach (byte item in dataCrc)
                 {
-                    Debug.WriteLine("Отправка данных -->{0}", item);
+                    Debug.Write(item.ToString("X2" + " "));
                 }
-                
+
+                Debug.WriteLine("");
                 _serialPortService.Write(dataCrc);
                 // включается таймер отсчета таймаута, на случай если ответ не придет.
                 _timeOutTimer.Start();
@@ -119,7 +126,7 @@ namespace ServiceTools.Services.SerialPort.Services
         private void SendDataTimer_Elapsed(object? sender, ElapsedEventArgs e)
         {
             // извлекает сообщение из очереди сообщений и отправляет его устройству
-           // _sendDataTimer.Stop();
+            // _sendDataTimer.Stop();
             WriteData(_messageQueue.GetMessageFromQueue());
         }
 
