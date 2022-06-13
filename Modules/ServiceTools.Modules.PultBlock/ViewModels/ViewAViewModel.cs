@@ -14,10 +14,43 @@ namespace ServiceTools.Modules.PultBlock.ViewModels
     {
         public ViewAViewModel()
         {
-            
+
         }
 
         // Свойства
+
+        #region 1 Канал монетоприемника
+
+        private string _coinAcceptor1;
+        public string CoinAcceptorChanel1
+        {
+            get => _coinAcceptor1;
+            set => SetProperty(ref _coinAcceptor1, value);
+        }
+
+        #endregion
+
+        #region 2 Канал монетоприемника
+
+        private string _coinAcceptorChanel2;
+        public string CoinAcceptorChanel2
+        {
+            get => _coinAcceptorChanel2;
+            set => SetProperty(ref _coinAcceptorChanel2, value);
+        }
+
+        #endregion
+
+        #region 3 Канал монетоприемника
+
+        private string _coinAcceptorChanel3;
+        public string CoinAcceptorChanel3
+        {
+            get => _coinAcceptorChanel3;
+            set => SetProperty(ref _coinAcceptorChanel3, value);
+        }
+
+        #endregion
 
         #region Серийный номер
 
@@ -26,7 +59,7 @@ namespace ServiceTools.Modules.PultBlock.ViewModels
         {
             get => _serialNumber;
             set => SetProperty(ref _serialNumber, value);
-        }                   
+        }
 
         #endregion
 
@@ -163,6 +196,45 @@ namespace ServiceTools.Modules.PultBlock.ViewModels
         #endregion
 
         // Команды
+
+        #region Начисление баланса для монетоприемника 1 канал
+
+        private DelegateCommand _coinAcceptorChanel1Command;
+        public DelegateCommand CoinAcceptorChanel1Command =>
+            _coinAcceptorChanel1Command ?? (_coinAcceptorChanel1Command = new DelegateCommand(ExecuteCoinAcceptorChanel1));
+
+        private void ExecuteCoinAcceptorChanel1()
+        {
+
+        }
+
+        #endregion
+
+        #region Начисление баланса для монетоприемника 2 канал
+
+        private DelegateCommand _coinAcceptorChanel2Command;
+        public DelegateCommand CoinAcceptorChanel2Command =>
+            _coinAcceptorChanel2Command ?? (_coinAcceptorChanel2Command = new DelegateCommand(ExecuteCoinAcceptorChanel2));
+
+        private void ExecuteCoinAcceptorChanel2()
+        {
+
+        }
+
+        #endregion
+
+        #region Начисление баланса для монетоприемника 3 канал
+
+        private DelegateCommand _coinAcceptorChanel3Command;
+        public DelegateCommand CoinAcceptorChanel3Command =>
+            _coinAcceptorChanel3Command ?? (_coinAcceptorChanel3Command = new DelegateCommand(ExecuteCoinAcceptorChanel3));
+
+        private void ExecuteCoinAcceptorChanel3()
+        {
+
+        }
+
+        #endregion
 
         #region Запрос серийного номера
 

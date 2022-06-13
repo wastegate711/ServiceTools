@@ -12,6 +12,35 @@
              prism:ViewModelLocator.AutoWireViewModel="True" >
     <Grid>
         <StackPanel Orientation="Vertical">
+            <!--Монетоприемник-->
+            <GroupBox Header="Монетоприемник">
+                <StackPanel Orientation="Vertical">
+                    <!--1 Канал-->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="1 Канал:"/>
+                        <TextBlock Text="{Binding CoinAcceptorChanel1}"/>
+                        <Button Height="10"
+                                Width="30"
+                                Command="{Binding CoinAcceptorChanel1Command}"/>
+                    </StackPanel>
+                    <!--2 Канал-->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="2 Канал:"/>
+                        <TextBlock Text="{Binding CoinAcceptorChanel2}"/>
+                        <Button Height="10"
+                                Width="30"
+                                Command="{Binding CoinAcceptorChanel2Command}"/>
+                    </StackPanel>
+                    <!--3 Канал-->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="3 Канал:"/>
+                        <TextBlock Text="{Binding CoinAcceptorChanel3}"/>
+                        <Button Height="10"
+                                Width="30"
+                                Command="{Binding CoinAcceptorChanel3Command}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
             <!--Серийный номер-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Серийный номер:"/>
