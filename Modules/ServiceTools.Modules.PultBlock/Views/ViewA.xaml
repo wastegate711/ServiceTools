@@ -5,12 +5,133 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
+             xmlns:viewmodels="clr-namespace:ServiceTools.Modules.PultBlock.ViewModels"
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:prism="http://prismlibrary.com/"
+             d:DataContext="{d:DesignInstance Type=viewmodels:ViewAViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True" >
     <Grid>
-        <TextBlock Text="{Binding Message}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" />
+        <StackPanel Orientation="Vertical">
+            <!--Монетоприемник-->
+            <GroupBox Header="Монетоприемник">
+                <StackPanel Orientation="Vertical">
+                    <!--1 Канал-->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="1 Канал:"/>
+                        <TextBlock Text="{Binding CoinAcceptorChanel1}"/>
+                        <Button Height="10"
+                                Width="30"
+                                Command="{Binding CoinAcceptorChanel1Command}"/>
+                    </StackPanel>
+                    <!--2 Канал-->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="2 Канал:"/>
+                        <TextBlock Text="{Binding CoinAcceptorChanel2}"/>
+                        <Button Height="10"
+                                Width="30"
+                                Command="{Binding CoinAcceptorChanel2Command}"/>
+                    </StackPanel>
+                    <!--3 Канал-->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="3 Канал:"/>
+                        <TextBlock Text="{Binding CoinAcceptorChanel3}"/>
+                        <Button Height="10"
+                                Width="30"
+                                Command="{Binding CoinAcceptorChanel3Command}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <!--Серийный номер-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Серийный номер:"/>
+                <TextBlock Text="{Binding SerialNumber}"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding SerialNumberBrush}"
+                        Command="{Binding SerialNumberCommand}"/>
+            </StackPanel>
+            <!--Версия программы-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Версия программы:"/>
+                <TextBlock Text="{Binding VersionSoftware}"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding VersionSoftwareBrush}"
+                        Command="{Binding VersionSoftwareCommand}"/>
+            </StackPanel>
+            <!--Включение подсветки кнопки Средство от насекомых-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Подсветка Средство от насекомых"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding BacklightInsectBrush}"
+                        Command="{Binding BacklightInsectCommand}"/>
+            </StackPanel>
+            <!--Включение подсветки кнопки Пена-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Подсветка Пена"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding BacklightFoamBrush}"
+                        Command="{Binding BacklightFoamCommand}"/>
+            </StackPanel>
+            <!--Включение подсветки кнопки Пена + вода-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Подсветка Пена + вода"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding BacklightFoamWaterBrush}"
+                        Command="{Binding BacklightFoamWaterCommand}"/>
+            </StackPanel>
+            <!--Включение подсветки кнопки Горячая вода-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Подсветка Горячая вода"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding BacklightHotWaterBrush}"
+                        Command="{Binding BacklightHotWaterCommand}"/>
+            </StackPanel>
+            <!--Включение подсветки кнопки Холодная вода-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Подсветка Холодная вода"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding BacklightCoolWaterBrush}"
+                        Command="{Binding BacklightCoolWaterCommand}"/>
+            </StackPanel>
+            <!--Включение подсветки кнопки Воск-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Подсветка Воск"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding BacklightVoskBrush}"
+                        Command="{Binding BacklightVoskCommand}"/>
+            </StackPanel>
+            <!--Включение подсветки кнопки Осмос-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Подсветка Осмос"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding BacklightOsmosBrush}"
+                        Command="{Binding BacklightOsmosCommand}"/>
+            </StackPanel>
+            <!--Включение подсветки кнопки Стоп-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Подсветка Стоп"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding BacklightStopBrush}"
+                        Command="{Binding BacklightStopCommand}"/>
+            </StackPanel>
+            <!--Установка значения на дисплее-->
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Баланс:"/>
+                <TextBox Text="{Binding DisplayValue, UpdateSourceTrigger=PropertyChanged}"
+                         MinWidth="50"/>
+                <Button Height="10"
+                        Width="30"
+                        Command="{Binding DisplayValueCommand}"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>
