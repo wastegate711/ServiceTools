@@ -8,9 +8,9 @@ using ServiceTools.Services.SerialPort.Interfaces;
 
 namespace ServiceTools.Services.ControlBlock
 {
-    public class ResponseSorting : IResponseSorting
+    public class ResponseSortingControlBlock : IResponseSortingControlBlock
     {
-        public ResponseSorting()
+        public ResponseSortingControlBlock()
         {
             
         }

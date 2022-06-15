@@ -17,7 +17,7 @@ namespace ServiceTools.Modules.PultBlock
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RequestNavigate(RegionNames.ControlBlockTab, "PultView");
+            _regionManager.RequestNavigate(RegionNames.PultBlockTab, "PultView");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

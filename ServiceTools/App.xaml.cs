@@ -10,7 +10,11 @@ using SerialPortService.Abstractions;
 using SerialPortService.Services;
 using ServiceTools.Core.Extensions;
 using ServiceTools.Interfaces.Serial_port;
+using ServiceTools.Services.PultBlock.Interfaces.Helpers;
 using ServiceTools.Services.Serial_Port;
+using ServiceTools.Services.PultBlock.Helpers;
+using ServiceTools.Services.PultBlock.Interfaces.Services;
+using ServiceTools.Services.PultBlock.Services;
 
 namespace ServiceTools
 {
@@ -31,6 +35,8 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<ISerialPortService, Serial_Port>();
             containerRegistry.RegisterSingleton<IPortManager, PortManager>();
             containerRegistry.RegisterSingleton<IReceivedData, ReceivedData>();
+            containerRegistry.Register<IConstructorPult, ConstructorPult>();
+            containerRegistry.Register<IRequestsPult, RequestsPult>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

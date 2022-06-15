@@ -1,6 +1,6 @@
 ﻿namespace ServiceTools.Interfaces.ControlBlock;
 
-public interface IResponseSorting
+public interface IResponseSortingControlBlock
 {
     
 }
