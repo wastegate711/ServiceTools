@@ -9,6 +9,8 @@ using ServiceTools.Services.SerialPort.Services;
 using SerialPortService.Abstractions;
 using SerialPortService.Services;
 using ServiceTools.Core.Extensions;
+using ServiceTools.Interfaces.Serial_port;
+using ServiceTools.Services.Serial_Port;
 
 namespace ServiceTools
 {
@@ -27,8 +29,8 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<GlobalSettings>();
             containerRegistry.RegisterSingleton<IMessageQueue, MessageQueue>();
             containerRegistry.RegisterSingleton<ISerialPortService, Serial_Port>();
-            containerRegistry.Register<IReceivData, ReceivData>();
             containerRegistry.RegisterSingleton<IPortManager, PortManager>();
+            containerRegistry.RegisterSingleton<IReceivedData, ReceivedData>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

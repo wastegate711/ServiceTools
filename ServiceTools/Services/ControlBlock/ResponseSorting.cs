@@ -10,11 +10,9 @@ namespace ServiceTools.Services.ControlBlock
 {
     public class ResponseSorting : IResponseSorting
     {
-        private readonly IReceivData _receivData;
-
-        public ResponseSorting(IReceivData receivData)
+        public ResponseSorting()
         {
-            _receivData = receivData;
+            
         }
     }
 }

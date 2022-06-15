@@ -15,7 +15,6 @@ namespace ServiceTools.Services.SerialPort.Services
     public class PortManager : IPortManager, IDisposable
     {
         private readonly ISerialPortService _serialPortService = null!;
-        private readonly IReceivData _receivData;
         private readonly IMessageQueue _messageQueue;
 
         private Timer _timeOutTimer = null!;
@@ -23,13 +22,13 @@ namespace ServiceTools.Services.SerialPort.Services
         byte[] sendData = null!;
         public double TimeOutInterval { get; set; } = 3000;//TODO заменить на глобальные настройки.
         public int SendDataInterval { get; set; } = 3000;//TODO заменить на глобальные настройки.
+        /// <inheritdoc/>
+        public event Action<byte[]> ReceivedData;
 
         public PortManager(IMessageQueue messageQueue,
-            ISerialPortService serialPortService,
-            IReceivData receivData)
+            ISerialPortService serialPortService)
         {
             _serialPortService = serialPortService;
-            _receivData = receivData;
             _messageQueue = messageQueue;
 
         }
@@ -119,8 +118,19 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <param name="data"></param>
         private void SerialPortService_DataReceived(byte[] data)
         {
-            _receivData.ReadData(data);
+            //_receivData.ReadData(data);
+            RiseReceivedData(data);
             _timeOutTimer.Stop();
+        }
+
+        private void RiseReceivedData(byte[] aData)
+        {
+            ReceivedData?.Invoke(aData);
+
+            foreach (Delegate item in ReceivedData?.GetInvocationList()!)
+            {
+                Debug.WriteLine(item.Method.Name);
+            }
         }
         // ведет постоянную отправку сообщений в сеть по таймеру.
         private void SendDataTimer_Elapsed(object? sender, ElapsedEventArgs e)

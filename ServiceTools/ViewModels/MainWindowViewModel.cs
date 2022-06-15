@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using SerialPortService.Abstractions;
+using ServiceTools.Interfaces.Serial_port;
 using ServiceTools.Services.SerialPort.Interfaces;
 
 namespace ServiceTools.ViewModels
@@ -8,10 +9,12 @@ namespace ServiceTools.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private readonly IPortManager _portManager;
+        private readonly IReceivedData _receivedData;
 
-        public MainWindowViewModel(IPortManager portManager)
+        public MainWindowViewModel(IPortManager portManager, IReceivedData receivedData)
         {
             _portManager = portManager;
+            _receivedData = receivedData;
         }
 
         #region Заголовок окна
@@ -34,6 +37,7 @@ namespace ServiceTools.ViewModels
         private void InitializeStartApp()
         {
             _portManager.Initialization();//инициализация таймеров и СОМ порта
+            _receivedData.Initialization();
         }
 
         #endregion

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServiceTools.Services.SerialPort.Tools
 {
-    internal static class Crc16
+    public static class Crc16
     {
         private static readonly ushort[] crcTable =
         {

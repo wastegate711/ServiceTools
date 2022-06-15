@@ -1,4 +1,5 @@
-﻿using ServiceTools.Services.SerialPort.Interfaces;
+﻿using ServiceTools.Interfaces.Serial_port;
+using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.SerialPort.Tools;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceTools.Services.SerialPort.Services
+namespace ServiceTools.Services.Serial_Port
 {
-    public class ReceivData : IReceivData
-    {
-        /*
+    /*
          * Формат сообщений
          * [0] = [адрес ведущего 1 байт]
          * [1] = [адрес ведомого 1 байт]
@@ -21,26 +20,32 @@ namespace ServiceTools.Services.SerialPort.Services
          * [^2] = [CRC16-2 байта]
          * [^1] = [CRC16-2 байта]
          */
-        private bool accessFlag = false;
+    public class ReceivedData : IReceivedData
+    {
+        private readonly IPortManager _portManager;
         private const byte controlBlockAddr = 0x02; //адрес блока управления
         private const byte pultBlockAddr = 0x03; //адрес пульта
 
-        public ReceivData()
+        public ReceivedData(IPortManager portManager)
         {
-
+            _portManager = portManager;
         }
 
-        ///<inheritdoc/>
-        public void ReadData(byte[] buf)
+        public void Initialization()
         {
-            if (buf.CompareCrc16())
+            _portManager.ReceivedData += PortManager_ReceivedData;
+        }
+
+        private void PortManager_ReceivedData(byte[] aData)
+        {
+            if (aData.CompareCrc16())
             {
-                switch (buf[1])//определяем от какого блока пришли данные.
+                switch (aData[1])//определяем от какого блока пришли данные.
                 {
                     case controlBlockAddr:
                         Debug.Write("Входящие данные БУ<--\t");
 
-                        foreach (byte item in buf)
+                        foreach (byte item in aData)
                         {
                             Debug.Write(item.ToString("X2") + " ");
                         }
@@ -50,7 +55,7 @@ namespace ServiceTools.Services.SerialPort.Services
                     case pultBlockAddr:
                         Debug.Write("Входящие данные БП<--\t");
 
-                        foreach (byte item in buf)
+                        foreach (byte item in aData)
                         {
                             Debug.Write(item.ToString("X2") + " ");
                         }
@@ -60,6 +65,5 @@ namespace ServiceTools.Services.SerialPort.Services
                 }
             }
         }
-
     }
 }
