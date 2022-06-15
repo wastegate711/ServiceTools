@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ServiceTools.Modules.PultBlock.Views
 {
     /// <summary>
-    /// Interaction logic for ViewA.xaml
+    /// Interaction logic for PultView.xaml
     /// </summary>
-    public partial class ViewA : UserControl
+    public partial class PultView : UserControl
     {
-        public ViewA()
+        public PultView()
         {
             InitializeComponent();
         }
