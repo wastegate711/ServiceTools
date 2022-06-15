@@ -17,12 +17,12 @@ namespace ServiceTools.Modules.PultBlock
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RequestNavigate(RegionNames.ControlBlockTab, "ViewA");
+            _regionManager.RequestNavigate(RegionNames.ControlBlockTab, "PultView");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<ViewA>();
+            containerRegistry.RegisterForNavigation<PultView>();
         }
     }
 }

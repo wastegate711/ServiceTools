@@ -10,9 +10,9 @@ using System.Windows.Media;
 
 namespace ServiceTools.Modules.PultBlock.ViewModels
 {
-    public class ViewAViewModel : BindableBase
+    public class PultViewViewModel : BindableBase
     {
-        public ViewAViewModel()
+        public PultViewViewModel()
         {
 
         }
