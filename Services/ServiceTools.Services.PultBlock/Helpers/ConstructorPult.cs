@@ -33,5 +33,18 @@ namespace ServiceTools.Services.PultBlock.Helpers
 
             return temp;
         }
+
+        /// <inheritdoc />
+        public byte[] ExtractData(byte[] data)
+        {
+            byte[] tmp = new byte[data.Length - 6]; // -6 это отсекаем не нужные байты (адресы, команды, CRC16)
+
+            for (int i = 4, n=0; i < data.Length-2; i++, n++)
+            {
+                tmp[n] = data[i];
+            }
+
+            return tmp;
+        }
     }
 }

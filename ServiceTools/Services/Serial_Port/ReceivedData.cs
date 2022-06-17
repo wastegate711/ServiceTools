@@ -1,4 +1,5 @@
-﻿using ServiceTools.Interfaces.Serial_port;
+﻿using ServiceTools.Interfaces.Pult;
+using ServiceTools.Interfaces.Serial_port;
 using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.SerialPort.Tools;
 using System;
@@ -23,12 +24,14 @@ namespace ServiceTools.Services.Serial_Port
     public class ReceivedData : IReceivedData
     {
         private readonly IPortManager _portManager;
+        private readonly IResponseSortingPult _responseSortingPult;
         private const byte controlBlockAddr = 0x02; //адрес блока управления
         private const byte pultBlockAddr = 0x03; //адрес пульта
 
-        public ReceivedData(IPortManager portManager)
+        public ReceivedData(IPortManager portManager, IResponseSortingPult responseSortingPult)
         {
             _portManager = portManager;
+            _responseSortingPult = responseSortingPult;
         }
 
         public void Initialization()
@@ -51,6 +54,8 @@ namespace ServiceTools.Services.Serial_Port
                         }
 
                         Debug.WriteLine("");
+
+
                         break;
                     case pultBlockAddr:
                         Debug.Write("Входящие данные БП<--\t");
@@ -61,8 +66,14 @@ namespace ServiceTools.Services.Serial_Port
                         }
 
                         Debug.WriteLine("");
+
+                        _responseSortingPult.IncomingSorting(aData);
                         break;
                 }
+            }
+            else
+            {
+                Debug.WriteLine("Ошибка CRC16 Отправитель={0} Команда={1}", aData[1], aData[2]);
             }
         }
     }

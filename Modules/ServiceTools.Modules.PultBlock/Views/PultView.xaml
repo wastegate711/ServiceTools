@@ -44,7 +44,8 @@
             <!--Серийный номер-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Серийный номер:"/>
-                <TextBlock Text="{Binding SerialNumber}"/>
+                <TextBlock Text="{Binding SerialNumber}"
+                           Width="100"/>
                 <Button Height="10"
                         Width="30"
                         Background="{Binding SerialNumberBrush}"
