@@ -41,7 +41,7 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<IReceivedData, ReceivedData>();
             containerRegistry.Register<IConstructorPult, ConstructorPult>();
             containerRegistry.Register<IRequestsPult, RequestsPult>();
-            containerRegistry.RegisterSingleton<PultViewViewModel>();
+            containerRegistry.RegisterSingleton<ViewPultViewModel>();
             containerRegistry.Register<IResponseSortingPult, ResponseSortingPult>();
             containerRegistry.RegisterSingleton<ViewAViewModel>();
         }

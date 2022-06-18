@@ -12,15 +12,15 @@ namespace ServiceTools.ViewModels
     {
         private readonly IPortManager _portManager;
         private readonly IReceivedData _receivedData;
-        private readonly PultViewViewModel _pultViewViewModel;
+        private readonly ViewPultViewModel _viewPultViewModel;
         private readonly ViewAViewModel _viewAViewModel;
 
-        public MainWindowViewModel(IPortManager portManager, IReceivedData receivedData, PultViewViewModel pultViewViewModel,
+        public MainWindowViewModel(IPortManager portManager, IReceivedData receivedData, ViewPultViewModel viewPultViewModel,
             ViewAViewModel viewAViewModel)
         {
             _portManager = portManager;
             _receivedData = receivedData;
-            _pultViewViewModel = pultViewViewModel;
+            _viewPultViewModel = viewPultViewModel;
             _viewAViewModel = viewAViewModel;
         }
 
@@ -45,7 +45,7 @@ namespace ServiceTools.ViewModels
         {
             _portManager.Initialization();//инициализация таймеров и СОМ порта
             _receivedData.Initialization();
-            _pultViewViewModel.SerialNumber = "asdasdasd";
+            _viewPultViewModel.SerialNumber = "asdasdasd";
             _viewAViewModel.SerialNumber = "123123123123123";
         }
 

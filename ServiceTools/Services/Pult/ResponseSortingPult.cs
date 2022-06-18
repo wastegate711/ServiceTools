@@ -25,20 +25,20 @@ namespace ServiceTools.Services.Pult
          */
     public class ResponseSortingPult : IResponseSortingPult
     {
-        private readonly PultViewViewModel _pultViewViewModel;
+        private readonly ViewPultViewModel _viewPultViewModel;
         private readonly IConstructorPult _constructorPult;
         private readonly IMessageQueue _messageQueue;
         private readonly IRequestsPult _requestsPult;
         private readonly ViewAViewModel _viewAViewModel;
         Task thredPult;
 
-        public ResponseSortingPult(PultViewViewModel pultViewViewModel,
+        public ResponseSortingPult(ViewPultViewModel viewPultViewModel,
             IConstructorPult constructorPult,
             IMessageQueue messageQueue,
             IRequestsPult requestsPult,
             ViewAViewModel viewAViewModel)
         {
-            _pultViewViewModel = pultViewViewModel;
+            _viewPultViewModel = viewPultViewModel;
             _constructorPult = constructorPult;
             _messageQueue = messageQueue;
             _requestsPult = requestsPult;
@@ -53,10 +53,11 @@ namespace ServiceTools.Services.Pult
                 case 0x01:
                     var temp = _requestsPult.GetSerialNumberDevice();
                     _messageQueue.AddMessageToQueue(temp);
+                    _messageQueue.AddMessageToQueue(_requestsPult.SetBacklightButtonStop(State.On));
                     break;
                 case 0x02:
                     var result = string.Concat(_constructorPult.ExtractData(aData));
-                    _pultViewViewModel.SerialNumber = result;
+                    _viewPultViewModel.SerialNumber = result;
                     _viewAViewModel.SerialNumber = result;
                     break;
                 default:

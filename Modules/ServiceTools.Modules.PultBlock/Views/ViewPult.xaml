@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ServiceTools.Modules.PultBlock.Views.PultView"
+﻿<UserControl x:Class="ServiceTools.Modules.PultBlock.Views.ViewPult"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ServiceTools.Modules.PultBlock.Views"
@@ -8,7 +8,7 @@
              xmlns:viewmodels="clr-namespace:ServiceTools.Modules.PultBlock.ViewModels"
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:prism="http://prismlibrary.com/"
-             d:DataContext="{d:DesignInstance Type=viewmodels:PultViewViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewmodels:ViewPultViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True" >
     <Grid>
         <StackPanel Orientation="Vertical">
@@ -44,8 +44,7 @@
             <!--Серийный номер-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Серийный номер:"/>
-                <TextBlock Text="{Binding SerialNumber}"
-                           Width="100"/>
+                <TextBlock Text="{Binding SerialNumber}"/>
                 <Button Height="10"
                         Width="30"
                         Background="{Binding SerialNumberBrush}"

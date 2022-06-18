@@ -16,4 +16,17 @@ public interface IRequestsPult
     /// </summary>
     /// <returns>Вернет массив готовый к отправке устройству.</returns>
     byte[] GetSerialNumberDevice();
+
+    /// <summary>
+    /// Запрашивает версию программы устройства.
+    /// </summary>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] GetSoftwareVersion();
+
+    /// <summary>
+    /// Управляет состояние подсветки кнопки Стоп
+    /// </summary>
+    /// <param name="state">Состояние On-Включено/Off-выключено</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetBacklightButtonStop(State state);
 }

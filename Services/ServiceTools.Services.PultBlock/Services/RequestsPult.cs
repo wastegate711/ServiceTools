@@ -29,6 +29,15 @@ namespace ServiceTools.Services.PultBlock.Services
                 _globalSettings.PultAddress,
                 (byte)Command.SetBacklightButtonInsect);
         }
+
+        /// <inheritdoc />
+        public byte[] SetBacklightButtonStop(State state)
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.PultAddress,
+                (byte)Command.SetBacklightButtonStop);
+        }
         /// <inheritdoc/>
         public byte[] GetSerialNumberDevice()
         {
@@ -36,6 +45,14 @@ namespace ServiceTools.Services.PultBlock.Services
                 new byte[] { 0 },
                 _globalSettings.PultAddress,
                 (byte)Command.GetSerialNumber);
+        }
+        /// <inheritdoc/>
+        public byte[] GetSoftwareVersion()
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.PultAddress,
+                (byte)Command.GetSoftwareVersion);
         }
     }
 }

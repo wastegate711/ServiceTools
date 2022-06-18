@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ServiceTools.Modules.PultBlock.Views
+namespace PultDevice.Views
 {
     /// <summary>
-    /// Interaction logic for PultView.xaml
+    /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class PultView : UserControl
+    public partial class ViewA : UserControl
     {
-        public PultView()
+        public ViewA()
         {
             InitializeComponent();
         }
