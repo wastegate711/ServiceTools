@@ -73,7 +73,14 @@ namespace ServiceTools.Services.Serial_Port
             }
             else
             {
-                Debug.WriteLine("Ошибка CRC16 Отправитель={0} Команда={1}", aData[1], aData[2]);
+                if (aData.Length >= 3)
+                {
+                    Debug.WriteLine("Ошибка CRC16 Отправитель={0} Команда={1}", aData[1], aData[2]);
+                }
+                else
+                {
+                    Debug.WriteLine("Ошибка входной массив короче 3 символов.");
+                }
             }
         }
     }

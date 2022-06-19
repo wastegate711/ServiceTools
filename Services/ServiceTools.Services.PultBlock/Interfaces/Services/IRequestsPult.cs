@@ -12,6 +12,48 @@ public interface IRequestsPult
     byte[] SetBacklightButtonInsect(State state);
 
     /// <summary>
+    /// Управляет состояние подсветки кнопки Пена
+    /// </summary>
+    /// <param name="state">Состояние On-Включено/Off-выключено</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetBacklightButtonFoam(State state);
+
+    /// <summary>
+    /// Управляет состояние подсветки кнопки Пена + вода
+    /// </summary>
+    /// <param name="state">Состояние On-Включено/Off-выключено</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetBacklightButtonFoamWater(State state);
+
+    /// <summary>
+    /// Управляет состояние подсветки кнопки Горячая вода
+    /// </summary>
+    /// <param name="state">Состояние On-Включено/Off-выключено</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetBacklightButtonHotWater(State state);
+
+    /// <summary>
+    /// Управляет состояние подсветки кнопки Холодная вода
+    /// </summary>
+    /// <param name="state">Состояние On-Включено/Off-выключено</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetBacklightButtonCoolWater(State state);
+
+    /// <summary>
+    /// Управляет состояние подсветки кнопки Воск
+    /// </summary>
+    /// <param name="state">Состояние On-Включено/Off-выключено</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetBacklightButtonVosk(State state);
+
+    /// <summary>
+    /// Управляет состояние подсветки кнопки Осмос
+    /// </summary>
+    /// <param name="state">Состояние On-Включено/Off-выключено</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetBacklightButtonOsmos(State state);
+
+    /// <summary>
     /// Запрашивает серийный номер устройства.
     /// </summary>
     /// <returns>Вернет массив готовый к отправке устройству.</returns>
@@ -29,4 +71,11 @@ public interface IRequestsPult
     /// <param name="state">Состояние On-Включено/Off-выключено</param>
     /// <returns>Вернет массив готовый к отправке устройству.</returns>
     byte[] SetBacklightButtonStop(State state);
+
+    /// <summary>
+    /// Отправляет число для отображения его на дисплее.
+    /// </summary>
+    /// <param name="number">Число для отображения.</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetDisplayData(uint number);
 }

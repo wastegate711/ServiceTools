@@ -26,7 +26,7 @@ namespace ServiceTools.ViewModels
 
         #region Заголовок окна
 
-        private string _title = "Prism Application";
+        private string _title = "Service tools";
         public string Title
         {
             get => _title;
@@ -45,8 +45,6 @@ namespace ServiceTools.ViewModels
         {
             _portManager.Initialization();//инициализация таймеров и СОМ порта
             _receivedData.Initialization();
-            _viewPultViewModel.SerialNumber = "asdasdasd";
-            _viewAViewModel.SerialNumber = "123123123123123";
         }
 
         #endregion

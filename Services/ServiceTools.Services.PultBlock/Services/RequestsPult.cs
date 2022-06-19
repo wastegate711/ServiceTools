@@ -21,6 +21,7 @@ namespace ServiceTools.Services.PultBlock.Services
             _globalSettings = globalSettings;
             _constructorPult = constructorPult;
         }
+
         /// <inheritdoc/>
         public byte[] SetBacklightButtonInsect(State state)
         {
@@ -31,6 +32,60 @@ namespace ServiceTools.Services.PultBlock.Services
         }
 
         /// <inheritdoc />
+        public byte[] SetBacklightButtonFoam(State state)
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.PultAddress,
+                (byte)Command.SetBacklightButtonFoam);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetBacklightButtonFoamWater(State state)
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.PultAddress,
+                (byte)Command.SetBacklightButtonFoamWater);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetBacklightButtonHotWater(State state)
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.PultAddress,
+                (byte)Command.SetBacklightButtonHotWater);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetBacklightButtonCoolWater(State state)
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.PultAddress,
+                (byte)Command.SetBacklightButtonCoolWater);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetBacklightButtonVosk(State state)
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.PultAddress,
+                (byte)Command.SetBacklightButtonVosk);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetBacklightButtonOsmos(State state)
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.PultAddress,
+                (byte)Command.SetBacklightButtonOsmos);
+        }
+
+        /// <inheritdoc />
         public byte[] SetBacklightButtonStop(State state)
         {
             return _constructorPult.ConstructorCommand(
@@ -38,6 +93,7 @@ namespace ServiceTools.Services.PultBlock.Services
                 _globalSettings.PultAddress,
                 (byte)Command.SetBacklightButtonStop);
         }
+
         /// <inheritdoc/>
         public byte[] GetSerialNumberDevice()
         {
@@ -46,6 +102,7 @@ namespace ServiceTools.Services.PultBlock.Services
                 _globalSettings.PultAddress,
                 (byte)Command.GetSerialNumber);
         }
+
         /// <inheritdoc/>
         public byte[] GetSoftwareVersion()
         {
@@ -53,6 +110,21 @@ namespace ServiceTools.Services.PultBlock.Services
                 new byte[] { 0 },
                 _globalSettings.PultAddress,
                 (byte)Command.GetSoftwareVersion);
+        }
+
+        /// <inheritdoc/>
+        public byte[] SetDisplayData(uint number)
+        {
+            byte[] data = new byte[4];
+            data[0] = (byte)((byte)number>>24);
+            data[1] = (byte)((byte)number>>16);
+            data[2] = (byte)((byte)number>>8);
+            data[3] = (byte)((byte)number);
+
+            return _constructorPult.ConstructorCommand(
+                data,
+                _globalSettings.PultAddress,
+                (byte)Command.SetDisplayNumber);
         }
     }
 }

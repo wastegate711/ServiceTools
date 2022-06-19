@@ -30,7 +30,6 @@ namespace ServiceTools.Services.Pult
         private readonly IMessageQueue _messageQueue;
         private readonly IRequestsPult _requestsPult;
         private readonly ViewAViewModel _viewAViewModel;
-        Task thredPult;
 
         public ResponseSortingPult(ViewPultViewModel viewPultViewModel,
             IConstructorPult constructorPult,
@@ -50,29 +49,87 @@ namespace ServiceTools.Services.Pult
         {
             switch (aData[2])
             {
-                case 0x01:
-                    var temp = _requestsPult.GetSerialNumberDevice();
-                    _messageQueue.AddMessageToQueue(temp);
-                    _messageQueue.AddMessageToQueue(_requestsPult.SetBacklightButtonStop(State.On));
+                case (byte)Command.GetStatus://0x01
+
                     break;
-                case 0x02:
-                    var result = string.Concat(_constructorPult.ExtractData(aData));
-                    _viewPultViewModel.SerialNumber = result;
-                    _viewAViewModel.SerialNumber = result;
+                case (byte)Command.GetSerialNumber://0x02 Ответ на запрос серийного номера
+                    _viewPultViewModel.SerialNumber = string.Concat(_constructorPult.ExtractData(aData));
+                    break;
+                case (byte)Command.SetBacklightButtonInsect://0x16 Ответ на команду управления подсветкой кнопки Насекомые
+
+                    break;
+                case (byte)Command.SetBacklightButtonFoam://0x17 Ответ на команду управления подсветкой кнопки Пена
+
+                    break;
+                case (byte)Command.SetBacklightButtonFoamWater://0x18 Ответ на команду управления подсветкой кнопки Пена+вода
+
+                    break;
+                case (byte)Command.SetBacklightButtonHotWater://0x19 Ответ на команду управления подсветкой кнопки Горячая вода
+
+                    break;
+                case (byte)Command.SetBacklightButtonCoolWater://0x1A Ответ на команду управления подсветкой кнопки Холодная вода
+
+                    break;
+                case (byte)Command.SetBacklightButtonVosk://0x1B Ответ на команду управления подсветкой кнопки Воск
+
+                    break;
+                case (byte)Command.SetBacklightButtonOsmos://0x1C Ответ на команду управления подсветкой кнопки Осмос
+
+                    break;
+                case (byte)Command.SetBacklightButtonStop://0x1D Ответ на команду управления подсветкой кнопки Стоп
+
+                    break;
+                case (byte)Command.PushButtonInsect://0x1E Была нажата кнопка Средство от насекомых
+
+                    break;
+                case (byte)Command.PushButtonCollection://0x1F Была нажата кнопка Инкассация
+
+                    break;
+                case (byte)Command.SetDisplayNumber://0x20 Ответ на установку новых значений на дисплее
+
+                    break;
+                case (byte)Command.PushJettonChanel1://0x21 Был принят жетон по 1 каналу
+
+                    break;
+                case (byte)Command.PushJettonChanel2://0x22 Был принят жетон по 2 каналу
+
+                    break;
+                case (byte)Command.PushJettonChanel3://0x23 Был принят жетон по 3 каналу
+
+                    break;
+                case (byte)Command.PushButtonFoam://0x24 Была нажата кнопка Пена
+
+                    break;
+                case (byte)Command.PushButtonFoamWater://0x25 Была нажата кнопка Пена + вода
+
+                    break;
+                case(byte)Command.PushButtonHotWater://0x26 Была нажата кнопка Горячая вода
+
+                    break;
+                case (byte)Command.PushButtonCoolWater://0x27 Была нажата кнопка Холодная вода
+
+                    break;
+                case (byte)Command.PushButtonVosk://0x28 Была нажата кнопка Воск
+
+                    break;
+                case (byte)Command.PushButtonOsmos://0x29 Была нажата кнопка Осмос
+
+                    break;
+                case (byte)Command.PushButtonStop://0x2A Была нажата кнопка Стоп
+
+                    break;
+                case (byte)Command.GetSoftwareVersion://0x2B Ответ на запрос версии программы
+                    _viewPultViewModel.VersionSoftware = string.Format($"v{aData[4]}.{aData[5]}");
+                    break;
+                case (byte)Command.UidFlagReset://0x2C
+                    _messageQueue.AddMessageToQueue(_requestsPult.GetSerialNumberDevice());
+                    break;
+                case (byte)Command.SoftwareFlagReset://0x2D
+                    _messageQueue.AddMessageToQueue(_requestsPult.GetSoftwareVersion());
                     break;
                 default:
                     break;
             }
-        }
-
-        public Task StartSorting(byte[] aData, CancellationTokenSource cancellation)
-        {
-            return Task.Run(() => Work(aData), cancellation.Token);
-        }
-
-        private void Work(byte[] aData)
-        {
-            
         }
     }
 }
