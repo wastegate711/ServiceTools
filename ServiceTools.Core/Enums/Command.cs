@@ -181,5 +181,9 @@ public enum Command : byte
     /// <summary>
     /// Версия программы не запрашивалась
     /// </summary>
-    SoftwareFlagReset = 0x2D
+    SoftwareFlagReset = 0x2D,
+    /// <summary>
+    /// Управление блокировкой монетоприемника
+    /// </summary>
+    LockCoinAcceptor = 0x2E
 }

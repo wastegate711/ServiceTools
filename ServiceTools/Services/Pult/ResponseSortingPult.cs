@@ -116,16 +116,20 @@ namespace ServiceTools.Services.Pult
 
                     break;
                 case (byte)Command.PushButtonStop://0x2A Была нажата кнопка Стоп
-
+                    _messageQueue.AddMessageToQueue(_requestsPult.SetBacklightButtonStop(State.On));
                     break;
                 case (byte)Command.GetSoftwareVersion://0x2B Ответ на запрос версии программы
                     _viewPultViewModel.VersionSoftware = string.Format($"v{aData[4]}.{aData[5]}");
+                    _messageQueue.AddMessageToQueue(_requestsPult.SetDisplayData(7171));
                     break;
                 case (byte)Command.UidFlagReset://0x2C
                     _messageQueue.AddMessageToQueue(_requestsPult.GetSerialNumberDevice());
                     break;
                 case (byte)Command.SoftwareFlagReset://0x2D
                     _messageQueue.AddMessageToQueue(_requestsPult.GetSoftwareVersion());
+                    break;
+                case (byte)Command.LockCoinAcceptor://0x2E Управление блокировкой монетоприемника
+
                     break;
                 default:
                     break;

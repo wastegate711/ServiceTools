@@ -113,18 +113,25 @@ namespace ServiceTools.Services.PultBlock.Services
         }
 
         /// <inheritdoc/>
-        public byte[] SetDisplayData(uint number)
+        public byte[] SetDisplayData(ushort number)
         {
-            byte[] data = new byte[4];
-            data[0] = (byte)((byte)number>>24);
-            data[1] = (byte)((byte)number>>16);
-            data[2] = (byte)((byte)number>>8);
-            data[3] = (byte)((byte)number);
+            byte[] data = new byte[2];
+            data[0] = (byte)(number >> 8);
+            data[1] = (byte)number;
 
             return _constructorPult.ConstructorCommand(
                 data,
                 _globalSettings.PultAddress,
                 (byte)Command.SetDisplayNumber);
+        }
+
+        /// <inheritdoc/>
+        public byte[] SetLockCoinAcceptor(State state)
+        {
+            return _constructorPult.ConstructorCommand(
+                new byte[] { (byte)state },
+                _globalSettings.PultAddress,
+                (byte)Command.LockCoinAcceptor);
         }
     }
 }

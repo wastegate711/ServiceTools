@@ -77,5 +77,12 @@ public interface IRequestsPult
     /// </summary>
     /// <param name="number">Число для отображения.</param>
     /// <returns>Вернет массив готовый к отправке устройству.</returns>
-    byte[] SetDisplayData(uint number);
+    byte[] SetDisplayData(ushort number);
+
+    /// <summary>
+    /// Управление блокировкой монетоприемника.
+    /// </summary>
+    /// <param name="state">Состояние On-Включено/Off-выключено</param>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetLockCoinAcceptor(State state);
 }
