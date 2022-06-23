@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using SerialPortService.Abstractions;
+using ServiceTools.Core.Extensions;
 using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.SerialPort.Tools;
 using Timer = System.Timers.Timer;
@@ -15,28 +16,31 @@ namespace ServiceTools.Services.SerialPort.Services
     public class PortManager : IPortManager, IDisposable
     {
         private readonly ISerialPortService _serialPortService = null!;
-        private readonly IReceivData _receivData;
+        private readonly GlobalSettings _globalSettings;
         private readonly IMessageQueue _messageQueue;
 
         private Timer _timeOutTimer = null!;
         private Timer _sendDataTimer = null!;
         byte[] sendData = null!;
-        public double TimeOutInterval { get; set; } = 3000;//TODO заменить на глобальные настройки.
-        public int SendDataInterval { get; set; } = 3000;//TODO заменить на глобальные настройки.
+        private double TimeOutInterval { get; set; }
+        private double SendDataInterval { get; set; }
+        /// <inheritdoc/>
+        public event Action<byte[]> ReceivedData;
 
         public PortManager(IMessageQueue messageQueue,
             ISerialPortService serialPortService,
-            IReceivData receivData)
+            GlobalSettings globalSettings)
         {
             _serialPortService = serialPortService;
-            _receivData = receivData;
+            _globalSettings = globalSettings;
             _messageQueue = messageQueue;
-
         }
 
         /// <inheritdoc/>
         public void Initialization()
         {
+            SendDataInterval=_globalSettings.RequestInterval;
+            TimeOutInterval = _globalSettings.RequestInterval;
             //таймаут таймер настройка.
             _timeOutTimer = new Timer();
             _timeOutTimer.Interval = TimeOutInterval;
@@ -119,8 +123,19 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <param name="data"></param>
         private void SerialPortService_DataReceived(byte[] data)
         {
-            _receivData.ReadData(data);
+            //_receivData.ReadData(data);
+            RiseReceivedData(data);
             _timeOutTimer.Stop();
+        }
+
+        private void RiseReceivedData(byte[] aData)
+        {
+            ReceivedData?.Invoke(aData);
+
+            foreach (Delegate item in ReceivedData?.GetInvocationList()!)
+            {
+                Debug.WriteLine(item.Method.Name);
+            }
         }
         // ведет постоянную отправку сообщений в сеть по таймеру.
         private void SendDataTimer_Elapsed(object? sender, ElapsedEventArgs e)

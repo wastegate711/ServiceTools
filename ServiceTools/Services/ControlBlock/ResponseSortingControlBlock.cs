@@ -8,13 +8,11 @@ using ServiceTools.Services.SerialPort.Interfaces;
 
 namespace ServiceTools.Services.ControlBlock
 {
-    public class ResponseSorting : IResponseSorting
+    public class ResponseSortingControlBlock : IResponseSortingControlBlock
     {
-        private readonly IReceivData _receivData;
-
-        public ResponseSorting(IReceivData receivData)
+        public ResponseSortingControlBlock()
         {
-            _receivData = receivData;
+            
         }
     }
 }

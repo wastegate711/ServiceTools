@@ -26,6 +26,6 @@ namespace ServiceTools.Core.Extensions
         /// <summary>
         /// Интервал отправки сообщений в сеть RS-485
         /// </summary>
-        public double RequestInterval { get; } = 5000;
+        public double RequestInterval { get; } = 500;
     }
 }

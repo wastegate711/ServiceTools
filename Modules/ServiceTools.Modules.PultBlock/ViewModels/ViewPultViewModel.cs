@@ -10,9 +10,9 @@ using System.Windows.Media;
 
 namespace ServiceTools.Modules.PultBlock.ViewModels
 {
-    public class PultViewViewModel : BindableBase
+    public class ViewPultViewModel : BindableBase
     {
-        public PultViewViewModel()
+        public ViewPultViewModel()
         {
 
         }
@@ -54,7 +54,7 @@ namespace ServiceTools.Modules.PultBlock.ViewModels
 
         #region Серийный номер
 
-        private string _serialNumber = "123";
+        private string _serialNumber = "0";
         public string SerialNumber
         {
             get => _serialNumber;
@@ -76,7 +76,7 @@ namespace ServiceTools.Modules.PultBlock.ViewModels
 
         #region Версия программы
 
-        private string _softWareVersion = "0.0";
+        private string _softWareVersion = "v0.0";
         public string VersionSoftware
         {
             get => _softWareVersion;

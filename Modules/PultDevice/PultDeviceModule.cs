@@ -1,28 +1,27 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using PultDevice.Views;
 using ServiceTools.Core;
-using ServiceTools.Modules.PultBlock.Views;
 
-namespace ServiceTools.Modules.PultBlock
+namespace PultDevice
 {
-    public class PultBlockModule : IModule
+    public class PultDeviceModule : IModule
     {
         private readonly IRegionManager _regionManager;
 
-        public PultBlockModule(IRegionManager regionManager)
+        public PultDeviceModule(IRegionManager regionManager)
         {
             _regionManager = regionManager;
         }
-
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RequestNavigate(RegionNames.PultBlockTab, "ViewPult");
+            _regionManager.RequestNavigate(RegionNames.PultBlockTab, "ViewA");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<ViewPult>();
+
         }
     }
 }

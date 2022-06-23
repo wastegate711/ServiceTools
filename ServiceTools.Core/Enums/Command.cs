@@ -169,5 +169,21 @@ public enum Command : byte
     /// <summary>
     /// Нажата кнопка Стоп
     /// </summary>
-    PushButtonStop = 0x2A
+    PushButtonStop = 0x2A,
+    /// <summary>
+    /// Запрашивает версию программы устройства.
+    /// </summary>
+    GetSoftwareVersion = 0x2B,
+    /// <summary>
+    /// UID не запрашивался ведущим
+    /// </summary>
+    UidFlagReset = 0x2C,
+    /// <summary>
+    /// Версия программы не запрашивалась
+    /// </summary>
+    SoftwareFlagReset = 0x2D,
+    /// <summary>
+    /// Управление блокировкой монетоприемника
+    /// </summary>
+    LockCoinAcceptor = 0x2E
 }
