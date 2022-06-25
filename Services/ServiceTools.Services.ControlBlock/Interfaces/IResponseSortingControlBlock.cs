@@ -1,6 +1,6 @@
 ﻿namespace ServiceTools.Services.ControlBlock.Interfaces;
 
-public interface IAnswerSorting
+public interface IResponseSortingControlBlock
 {
     /// <summary>
     /// Сортирует ответы пришедшие от блока управления

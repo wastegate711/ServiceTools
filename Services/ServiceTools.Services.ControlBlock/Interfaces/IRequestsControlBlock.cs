@@ -2,109 +2,128 @@
 
 namespace ServiceTools.Services.ControlBlock.Interfaces;
 
-public interface IRequests
+public interface IRequestsControlBlock
 {
     /// <summary>
     /// Управляет состоянием клапана холодная вода
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetValveCoolWater(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetValveCoolWater(State state);
 
     /// <summary>
     /// Управляет состоянием клапана Горячая вода
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetValveHotWater(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetValveHotWater(State state);
 
     /// <summary>
     /// Управляет состоянием клапана Воздух
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetValveAir(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetValveAir(State state);
 
     /// <summary>
     /// Управляет состоянием клапана Осмос
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetValveOsmos(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetValveOsmos(State state);
 
     /// <summary>
     /// Управляет состоянием клапана Пена
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetValveFoam(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetValveFoam(State state);
 
     /// <summary>
     /// Управляет состоянием клапана Сброс давления.
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetValveDrop(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetValveDrop(State state);
 
     /// <summary>
     /// Управляет состоянием клапана Средство от насекомых
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetValveInsect(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetValveInsect(State state);
 
     /// <summary>
     /// Управляет состоянием дозатора Пена
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetDispenserFoam(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetDispenserFoam(State state);
 
     /// <summary>
     /// Управляет состоянием дозатора Воск
     /// </summary>
     /// <param name="state">Состояние Off/On</param>
-    public void SetDispenserVosk(State state);
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] SetDispenserVosk(State state);
 
     /// <summary>
     /// Отправляет команду запроса состояния клапана Холодная вода
     /// </summary>
-    public void GetValveCoolWater();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetValveCoolWater();
 
     /// <summary>
     /// Отправляет команду запроса состояния клапана Горячая вода
     /// </summary>
-    public void GetValveHotWater();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetValveHotWater();
 
     /// <summary>
     /// Отправляет команду запроса состояния клапана Осмос
     /// </summary>
-    public void GetValveOsmos();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetValveOsmos();
 
     /// <summary>
     /// Отправляет команду запроса состояния клапана Воздух
     /// </summary>
-    public void GetValveAir();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetValveAir();
 
     /// <summary>
     /// Отправляет команду запроса состояния клапана Средство от насекомых
     /// </summary>
-    public void GetValveInsect();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetValveInsect();
 
     /// <summary>
     /// Отправляет команду запроса состояния клапана Пена
     /// </summary>
-    public void GetValveFoam();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetValveFoam();
 
     /// <summary>
     /// Отправляет команду запроса состояния клапана Сброс давления
     /// </summary>
-    public void GetValveDrop();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetValveDrop();
 
     /// <summary>
     /// Отправляет команду запроса состояния дозатора Пена
     /// </summary>
-    public void GetDispenserFoam();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetDispenserFoam();
 
     /// <summary>
     /// Отправляет команду запроса состояния дозатора Воск
     /// </summary>
-    public void GetDispenserVosk();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetDispenserVosk();
 
     /// <summary>
     /// Отправляет команду запроса состояния датчика потока
     /// </summary>
-    public void GetSensorStream();
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    public byte[] GetSensorStream();
 }

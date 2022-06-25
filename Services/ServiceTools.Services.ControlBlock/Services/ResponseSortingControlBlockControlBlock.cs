@@ -7,7 +7,7 @@ using ServiceTools.Services.ControlBlock.Interfaces;
 
 namespace ServiceTools.Services.ControlBlock.Services
 {
-    public class AnswerSorting : IAnswerSorting
+    public class ResponseSortingControlBlockControlBlock : IResponseSortingControlBlock
     {
         /// <inheritdoc/>
         public void IncomingResponses(byte[] data)

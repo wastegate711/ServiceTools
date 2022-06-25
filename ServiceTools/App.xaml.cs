@@ -19,6 +19,11 @@ using ServiceTools.Modules.PultBlock.ViewModels;
 using ServiceTools.Interfaces.Pult;
 using ServiceTools.Services.Pult;
 using ServiceTools.Modules.ControlBlock.ViewModels;
+using ServiceTools.Interfaces.ControlBlock;
+using ServiceTools.Services.ControlBlock.Interfaces;
+using ServiceTools.Services.ControlBlock.Services;
+using ServiceTools.Services.ControlBlock.Interfaces.Helpers;
+using ServiceTools.Services.ControlBlock.Helpers;
 
 namespace ServiceTools
 {
@@ -44,6 +49,9 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<ViewPultViewModel>();
             containerRegistry.Register<IResponseSortingPult, ResponseSortingPult>();
             containerRegistry.RegisterSingleton<ViewAViewModel>();
+            containerRegistry.Register<Interfaces.ControlBlock.IResponseSortingControlBlock, Services.ControlBlock.ResponseSortingControlBlock>();
+            containerRegistry.Register<IRequestsControlBlock, RequestsControlBlock>();
+            containerRegistry.Register<IConstructorControlBlock, ConstructorControlBlock>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
