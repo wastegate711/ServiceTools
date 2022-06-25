@@ -186,5 +186,23 @@ namespace ServiceTools.Services.ControlBlock.Services
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetSensorStream);
         }
+
+        /// <inheritdoc />
+        public byte[] GetSerialNumber()
+        {
+            return _constructorControlBlock.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetSerialNumber);
+        }
+
+        /// <inheritdoc />
+        public byte[] GetSoftwareVersion()
+        {
+            return _constructorControlBlock.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.GetSoftwareVersion);
+        }
     }
 }
