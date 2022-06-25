@@ -13,15 +13,15 @@ namespace ServiceTools.ViewModels
         private readonly IPortManager _portManager;
         private readonly IReceivedData _receivedData;
         private readonly ViewPultViewModel _viewPultViewModel;
-        private readonly ViewAViewModel _viewAViewModel;
+        private readonly ViewControlBlockViewModel _viewControlBlockViewModel;
 
         public MainWindowViewModel(IPortManager portManager, IReceivedData receivedData, ViewPultViewModel viewPultViewModel,
-            ViewAViewModel viewAViewModel)
+            ViewControlBlockViewModel viewControlBlockViewModel)
         {
             _portManager = portManager;
             _receivedData = receivedData;
             _viewPultViewModel = viewPultViewModel;
-            _viewAViewModel = viewAViewModel;
+            _viewControlBlockViewModel = viewControlBlockViewModel;
         }
 
         #region Заголовок окна

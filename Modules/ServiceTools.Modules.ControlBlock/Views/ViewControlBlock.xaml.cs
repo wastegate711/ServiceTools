@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ServiceTools.Modules.ControlBlock.Views
 {
     /// <summary>
-    /// Interaction logic for ViewA.xaml
+    /// Interaction logic for ViewControlBlock.xaml
     /// </summary>
-    public partial class ViewA
+    public partial class ViewControlBlock
     {
-        public ViewA()
+        public ViewControlBlock()
         {
             InitializeComponent();
         }

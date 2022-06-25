@@ -17,12 +17,12 @@ namespace ServiceTools.Modules.ControlBlock
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RequestNavigate(RegionNames.ControlBlockTab, "ViewA");
+            _regionManager.RequestNavigate(RegionNames.ControlBlockTab, "ViewControlBlock");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<ViewA>();
+            containerRegistry.RegisterForNavigation<ViewControlBlock>();
         }
     }
 }

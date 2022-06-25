@@ -14,12 +14,12 @@ using System.Windows.Media;
 
 namespace ServiceTools.Modules.ControlBlock.ViewModels
 {
-    public class ViewAViewModel : BindableBase
+    public class ViewControlBlockViewModel : BindableBase
     {
         private readonly IMessageQueue _messageQueue;
         private readonly GlobalSettings _globalSettings;
 
-        public ViewAViewModel(IMessageQueue messageQueue, GlobalSettings globalSettings)
+        public ViewControlBlockViewModel(IMessageQueue messageQueue, GlobalSettings globalSettings)
         {
             _messageQueue = messageQueue;
             _globalSettings = globalSettings;

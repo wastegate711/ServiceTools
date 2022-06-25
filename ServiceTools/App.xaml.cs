@@ -19,7 +19,6 @@ using ServiceTools.Modules.PultBlock.ViewModels;
 using ServiceTools.Interfaces.Pult;
 using ServiceTools.Services.Pult;
 using ServiceTools.Modules.ControlBlock.ViewModels;
-using ServiceTools.Interfaces.ControlBlock;
 using ServiceTools.Services.ControlBlock.Interfaces;
 using ServiceTools.Services.ControlBlock.Services;
 using ServiceTools.Services.ControlBlock.Interfaces.Helpers;
@@ -48,8 +47,7 @@ namespace ServiceTools
             containerRegistry.Register<IRequestsPult, RequestsPult>();
             containerRegistry.RegisterSingleton<ViewPultViewModel>();
             containerRegistry.Register<IResponseSortingPult, ResponseSortingPult>();
-            containerRegistry.RegisterSingleton<ViewAViewModel>();
-            containerRegistry.Register<Interfaces.ControlBlock.IResponseSortingControlBlock, Services.ControlBlock.ResponseSortingControlBlock>();
+            containerRegistry.RegisterSingleton<ViewControlBlockViewModel>();
             containerRegistry.Register<IRequestsControlBlock, RequestsControlBlock>();
             containerRegistry.Register<IConstructorControlBlock, ConstructorControlBlock>();
         }
