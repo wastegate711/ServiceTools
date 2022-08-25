@@ -29,6 +29,7 @@ namespace ServiceTools.Services.Pult
         private readonly IConstructorPult _constructorPult;
         private readonly IMessageQueue _messageQueue;
         private readonly IRequestsPult _requestsPult;
+        byte[] tempMessage = new byte[255];
 
         public ResponseSortingPult(ViewPultViewModel viewPultViewModel,
             IConstructorPult constructorPult,
@@ -100,7 +101,7 @@ namespace ServiceTools.Services.Pult
                 case (byte)Command.PushButtonFoamWater://0x25 Была нажата кнопка Пена + вода
 
                     break;
-                case(byte)Command.PushButtonHotWater://0x26 Была нажата кнопка Горячая вода
+                case (byte)Command.PushButtonHotWater://0x26 Была нажата кнопка Горячая вода
 
                     break;
                 case (byte)Command.PushButtonCoolWater://0x27 Была нажата кнопка Холодная вода
