@@ -1,7 +1,7 @@
 ﻿using ServiceTools.Core.Enums;
-using ServiceTools.Interfaces.Pult;
 using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Modules.PultBlock.ViewModels;
+using ServiceTools.Services.Pult.Interfaces;
 using ServiceTools.Services.PultBlock.Interfaces.Helpers;
 using ServiceTools.Services.PultBlock.Interfaces.Services;
 using ServiceTools.Services.SerialPort.Interfaces;
@@ -29,19 +29,16 @@ namespace ServiceTools.Services.Pult
         private readonly IConstructorPult _constructorPult;
         private readonly IMessageQueue _messageQueue;
         private readonly IRequestsPult _requestsPult;
-        private readonly ViewAViewModel _viewAViewModel;
 
         public ResponseSortingPult(ViewPultViewModel viewPultViewModel,
             IConstructorPult constructorPult,
             IMessageQueue messageQueue,
-            IRequestsPult requestsPult,
-            ViewAViewModel viewAViewModel)
+            IRequestsPult requestsPult)
         {
             _viewPultViewModel = viewPultViewModel;
             _constructorPult = constructorPult;
             _messageQueue = messageQueue;
             _requestsPult = requestsPult;
-            _viewAViewModel = viewAViewModel;
         }
 
         /// <inheritdoc/>

@@ -1,4 +1,4 @@
-﻿namespace ServiceTools.Interfaces.Serial_port;
+﻿namespace ServiceTools.Services.Serial_Port.Interfaces;
 
 public interface IReceivedData
 {
