@@ -21,7 +21,7 @@ namespace ServiceTools.Services.SerialPort.Services
 
         private Timer _timeOutTimer = null!;
         private Timer _sendDataTimer = null!;
-        byte[] sendData = null!;
+        private byte[] sendData = new byte[255];
         private double TimeOutInterval { get; set; }
         private double SendDataInterval { get; set; }
         /// <inheritdoc/>
@@ -39,7 +39,7 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <inheritdoc/>
         public void Initialization()
         {
-            SendDataInterval=_globalSettings.RequestInterval;
+            SendDataInterval = _globalSettings.RequestInterval;
             TimeOutInterval = _globalSettings.RequestInterval;
             //таймаут таймер настройка.
             _timeOutTimer = new Timer();
@@ -93,6 +93,10 @@ namespace ServiceTools.Services.SerialPort.Services
                 }
 
                 Debug.WriteLine("");
+                // используем массив для временного хранения отправляемых данных в порт
+                // если ответ на этот запрос не пришел, то записываем эти данные обратно в очередь.
+                Array.Clear(sendData);
+                Array.Copy(dataCrc, sendData, dataCrc.Length);
                 _serialPortService.Write(dataCrc);
                 // включается таймер отсчета таймаута, на случай если ответ не придет.
                 _timeOutTimer.Start();
@@ -147,7 +151,7 @@ namespace ServiceTools.Services.SerialPort.Services
 
         private void TimeOutTimer_Elapsed(object? sender, ElapsedEventArgs e)
         {
-
+            _messageQueue.AddMessageToQueue(sendData);
         }
 
         /// <summary>
