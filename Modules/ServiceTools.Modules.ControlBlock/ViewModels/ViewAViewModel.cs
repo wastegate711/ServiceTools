@@ -4,12 +4,7 @@ using ServiceTools.Core.Enums;
 using ServiceTools.Core.Extensions;
 using ServiceTools.Services.SerialPort.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ServiceTools.Modules.ControlBlock.ViewModels
@@ -18,11 +13,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
     {
         private readonly IMessageQueue _messageQueue;
         private readonly GlobalSettings _globalSettings;
+        private readonly IMessageTools _messageTools;
 
-        public ViewAViewModel(IMessageQueue messageQueue, GlobalSettings globalSettings)
+        public ViewAViewModel(
+            IMessageQueue messageQueue,
+            GlobalSettings globalSettings,
+            IMessageTools messageTools)
         {
             _messageQueue = messageQueue;
             _globalSettings = globalSettings;
+            _messageTools = messageTools;
             DateTimeDevice = DateTime.Now.ToString(CultureInfo.CurrentCulture);
         }
         //Свойства
@@ -198,7 +198,7 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         void ExecuteSerialNumber()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetSerialNumber));
@@ -214,7 +214,7 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         void ExecuteValveDrop()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 1 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveDrop));
@@ -230,7 +230,7 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private void ExecuteDispenserVosk()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 1 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetDispenserVosk));
@@ -246,7 +246,7 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private void ExecuteDispenserPena()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 1 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetDispenserFoam));
@@ -260,9 +260,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         public DelegateCommand ValveInsectCommand =>
             _valveInsectCommand ?? (_valveInsectCommand = new DelegateCommand(ExecuteValveInsect));
 
-        void ExecuteValveInsect()
+        private void ExecuteValveInsect()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 1 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveInsect));
@@ -278,7 +278,7 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private void ExecuteValveAir()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 1 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveAir));
@@ -292,10 +292,12 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         public DelegateCommand ValveFoamCommand =>
             _valveFoamCommand ?? (_valveFoamCommand = new DelegateCommand(ExecuteValveFoamCommand));
 
-        void ExecuteValveFoamCommand()
+        private void ExecuteValveFoamCommand()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
-                new byte[] { 1 }, _globalSettings.ControlBlockAddress, (byte)Command.SetValveFoam));
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
+                new byte[] { 1 },
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.SetValveFoam));
         }
 
         #endregion
@@ -306,9 +308,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         public DelegateCommand ValveOsmosCommand =>
             _valveOsmosCommand ?? (_valveOsmosCommand = new DelegateCommand(ExecuteValveOsmos));
 
-        void ExecuteValveOsmos()
+        private void ExecuteValveOsmos()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 1 }, _globalSettings.ControlBlockAddress,
                 ((byte)Command.SetValveOsmos)));
         }
@@ -321,11 +323,11 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         public DelegateCommand CoolWaterCommand =>
             _coolWaterCommand ?? (_coolWaterCommand = new DelegateCommand(ExecuteCoolWater));
 
-        void ExecuteCoolWater()
+        private void ExecuteCoolWater()
         {
             byte[] temp = new byte[1];
             temp[0] = 1;
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(temp, 2, 0x03));
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(temp, 2, 0x03));
         }
 
         #endregion
@@ -336,12 +338,14 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         public DelegateCommand ValveHotWaterCommand =>
             _valveHotWaterCommand ?? (_valveHotWaterCommand = new DelegateCommand(ExecuteValveHotWater));
 
-        void ExecuteValveHotWater()
+        private void ExecuteValveHotWater()
         {
             byte[] temp = new byte[1];
             temp[0] = 0x01;
-            _messageQueue
-                .AddMessageToQueue(_messageQueue.ConstructorCommand(temp, _globalSettings.ControlBlockAddress, 0x04));
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
+                temp,
+                _globalSettings.ControlBlockAddress,
+                (byte)Command.SetValveHotWater));
         }
 
         #endregion

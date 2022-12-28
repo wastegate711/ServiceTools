@@ -24,14 +24,12 @@ namespace ServiceTools.Services.SerialPort.Services
         private byte[] controlBlockData = new byte[7];
         private byte[] pultData = new byte[7];
         private byte _messageCount = 0;
-        /// <summary>
-        /// Счетчик сообщений, по этому счетчику определяется
-        /// какому устройству будет отправлен базовый запрос.
-        /// </summary>
+        
+        /// <inheritdoc />
         public byte MessageCount
         {
             get => _messageCount;
-            set
+            private set
             {//если произошло переполнение счетчика обнуляем его.
                 if (_messageCount == byte.MaxValue)
                     _messageCount = 0;
@@ -40,9 +38,7 @@ namespace ServiceTools.Services.SerialPort.Services
             }
         }
 
-        /// <summary>
-        /// Возвращает количество сообщений в очереди.
-        /// </summary>
+        /// <inheritdoc />
         public int QueueCount => _queue.Count;
 
         public MessageQueue(GlobalSettings globalSettings)
@@ -67,32 +63,10 @@ namespace ServiceTools.Services.SerialPort.Services
             pultData[6] = 0x00;
         }
 
-        /// <summary>
-        /// Добавляет данные для отправки в конец очереди.
-        /// </summary>
-        /// <param name="data">Массив с данными которые нужно добавить в очередь.</param>
+        /// <inheritdoc />
         public void AddMessageToQueue(byte[] data)
         {
             _queue.Enqueue(data);
-        }
-
-        byte[] ConstructorRequest(byte[] data)
-        {
-            return null; //TODO необходимо доделать.
-        }
-        /// <inheritdoc/>
-        public byte[] ConstructorCommand(byte[] data, byte address, byte cmd)
-        {
-            byte[] temp = new byte[data.Length + 5]; //+4 это байты которые необходимо добавить к общей длине посылки,
-            // это адрес ведущего, адрес ведомого, команда, длина сообщения, номер посылки.
-            temp[0] = _globalSettings.CompAddress;
-            temp[1] = address;
-            temp[2] = cmd;
-            temp[3] = MessageCount;
-            temp[4] = (byte)((byte)temp.Length + 2);
-            Array.Copy(data, 0, temp, 5, data.Length);
-
-            return temp;
         }
 
         /// <inheritdoc />

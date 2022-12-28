@@ -1,9 +1,4 @@
 ﻿using ServiceTools.Core.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ServiceTools.Core.Enums;
 using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.ControlBlock.Interfaces;
@@ -14,11 +9,16 @@ namespace ServiceTools.Services.ControlBlock.Services
     {
         private readonly GlobalSettings _globalSettings;
         private readonly IMessageQueue _messageQueue;
+        private readonly IMessageTools _messageTools;
 
-        public Requests(GlobalSettings globalSettings, IMessageQueue messageQueue)
+        public Requests(
+            GlobalSettings globalSettings,
+            IMessageQueue messageQueue,
+            IMessageTools messageTools)
         {
             _globalSettings = globalSettings;
             _messageQueue = messageQueue;
+            _messageTools = messageTools;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetValveCoolWater(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveCoolWater));
@@ -39,7 +39,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetValveHotWater(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveHotWater));
@@ -51,7 +51,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetValveAir(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveAir));
@@ -63,7 +63,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetValveOsmos(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveOsmos));
@@ -75,7 +75,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetValveFoam(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveFoam));
@@ -87,7 +87,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetValveDrop(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveDrop));
@@ -99,7 +99,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetValveInsect(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveInsect));
@@ -111,7 +111,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetDispenserFoam(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetDispenserFoam));
@@ -123,7 +123,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <param name="state">Состояние Off/On</param>
         public void SetDispenserVosk(State state)
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetDispenserVosk));
@@ -134,7 +134,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetValveCoolWater()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveCoolWater));
@@ -145,7 +145,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetValveHotWater()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveHotWater));
@@ -156,7 +156,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetValveOsmos()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveOsmos));
@@ -167,7 +167,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetValveAir()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveAir));
@@ -178,7 +178,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetValveInsect()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveInsect));
@@ -189,7 +189,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetValveFoam()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveFoam));
@@ -200,7 +200,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetValveDrop()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveDrop));
@@ -211,7 +211,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetDispenserFoam()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetDispenserFoam));
@@ -222,7 +222,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetDispenserVosk()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetDispenserVosk));
@@ -233,7 +233,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// </summary>
         public void GetSensorStream()
         {
-            _messageQueue.AddMessageToQueue(_messageQueue.ConstructorCommand(
+            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetSensorStream));

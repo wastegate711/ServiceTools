@@ -3,6 +3,17 @@
 public interface IMessageQueue
 {
     /// <summary>
+    /// Счетчик сообщений, по этому счетчику определяется
+    /// какому устройству будет отправлен базовый запрос.
+    /// </summary>
+    byte MessageCount { get; }
+
+    /// <summary>
+    /// Возвращает количество сообщений в очереди.
+    /// </summary>
+    int QueueCount { get; }
+
+    /// <summary>
     /// Добавляет данные для отправки в конец очереди.
     /// </summary>
     /// <param name="data">Массив с данными которые нужно добавить в очередь.</param>
@@ -15,13 +26,4 @@ public interface IMessageQueue
     /// </summary>
     /// <returns>Сообщение для отправки его устройству.</returns>
     byte[] GetMessageFromQueue();
-
-    /// <summary>
-    /// Конструктор запросов, собирает из данных готовую к отправке посылку.
-    /// </summary>
-    /// <param name="data">Данные</param>
-    /// <param name="address">Адрес устройства</param>
-    /// <param name="cmd">Команда</param>
-    /// <returns></returns>
-    public byte[] ConstructorCommand(byte[] data, byte address, byte cmd);
 }

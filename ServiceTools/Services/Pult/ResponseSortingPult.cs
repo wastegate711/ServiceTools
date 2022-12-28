@@ -1,16 +1,10 @@
 ﻿using ServiceTools.Core.Enums;
-using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Modules.PultBlock.ViewModels;
 using ServiceTools.Services.Pult.Interfaces;
 using ServiceTools.Services.PultBlock.Interfaces.Helpers;
 using ServiceTools.Services.PultBlock.Interfaces.Services;
 using ServiceTools.Services.SerialPort.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using ServiceTools.Services.SerialPort.Tools;
 
 namespace ServiceTools.Services.Pult
 {
@@ -19,25 +13,28 @@ namespace ServiceTools.Services.Pult
          * [0] = [адрес ведущего 1 байт]
          * [1] = [адрес ведомого 1 байт]
          * [2] = [команда 1 байт]
-         * [3] = [длина сообщения 1 байт]
-         * [4] = [данные 0-251 байт]
-         * [5] = [CRC16-2 байта]
+         * [3] = [Номер сообщения 1 байт]
+         * [4] = [длина сообщения 1 байт]
+         * [5] = [данные 0-251 байт]
+         * [^2] = [CRC16-2 байта]
+         * [^1] = [CRC16-2 байта]
          */
     public class ResponseSortingPult : IResponseSortingPult
     {
         private readonly ViewPultViewModel _viewPultViewModel;
-        private readonly IConstructorPult _constructorPult;
+        private readonly IMessageTools _messageTools;
         private readonly IMessageQueue _messageQueue;
         private readonly IRequestsPult _requestsPult;
         byte[] tempMessage = new byte[255];
 
-        public ResponseSortingPult(ViewPultViewModel viewPultViewModel,
-            IConstructorPult constructorPult,
+        public ResponseSortingPult(
+            ViewPultViewModel viewPultViewModel,
+            IMessageTools messageTools,
             IMessageQueue messageQueue,
             IRequestsPult requestsPult)
         {
             _viewPultViewModel = viewPultViewModel;
-            _constructorPult = constructorPult;
+            _messageTools = messageTools;
             _messageQueue = messageQueue;
             _requestsPult = requestsPult;
         }
@@ -51,7 +48,7 @@ namespace ServiceTools.Services.Pult
 
                     break;
                 case (byte)Command.GetSerialNumber://0x02 Ответ на запрос серийного номера
-                    _viewPultViewModel.SerialNumber = string.Concat(_constructorPult.ExtractData(aData));
+                    _viewPultViewModel.SerialNumber = string.Concat(_messageTools.ExtractData(aData));
                     break;
                 case (byte)Command.SetBacklightButtonInsect://0x16 Ответ на команду управления подсветкой кнопки Насекомые
 
@@ -117,7 +114,7 @@ namespace ServiceTools.Services.Pult
                     _messageQueue.AddMessageToQueue(_requestsPult.SetBacklightButtonStop(State.On));
                     break;
                 case (byte)Command.GetSoftwareVersion://0x2B Ответ на запрос версии программы
-                    _viewPultViewModel.VersionSoftware = string.Format($"v{aData[4]}.{aData[5]}");
+                    _viewPultViewModel.VersionSoftware = string.Format($"v{aData[5]}.{aData[6]}");
                     _messageQueue.AddMessageToQueue(_requestsPult.SetDisplayData(7171));
                     break;
                 case (byte)Command.UidFlagReset://0x2C
