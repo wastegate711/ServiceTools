@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Timers;
 using SerialPortService.Abstractions;
 using ServiceTools.Core.Extensions;
@@ -40,7 +35,7 @@ namespace ServiceTools.Services.SerialPort.Services
         public void Initialization()
         {
             SendDataInterval = _globalSettings.RequestInterval;
-            TimeOutInterval = _globalSettings.RequestInterval;
+            TimeOutInterval = _globalSettings.RequestTimeOut;
             //таймаут таймер настройка.
             _timeOutTimer = new Timer();
             _timeOutTimer.Interval = TimeOutInterval;
@@ -55,16 +50,14 @@ namespace ServiceTools.Services.SerialPort.Services
             //_sendDataTimer.Enabled = true;
 
             //настройка СОМ порта.
-            //_serialPortService = new Serial_Port("com3", 115200);
-
             _serialPortService.BaudRate = 115200;
             _serialPortService.DataBit = 8;
-            _serialPortService.PortName = "com3";
+            _serialPortService.PortName = _globalSettings.PortName;
             _serialPortService.DataReceived += SerialPortService_DataReceived;
 
             if (!_serialPortService.Open())
             {
-                throw new Exception($"Порт не открылся.");
+                throw new Exception("Порт не открылся.");
             }
 
             _sendDataTimer.Start();
@@ -76,18 +69,18 @@ namespace ServiceTools.Services.SerialPort.Services
             try
             {
                 //создаем массив, вычисляем для него CRC16 и отправляем в порт.
-                byte[] dataCrc = new byte[data.Length + 2];
+                byte[] writeData = new byte[data.Length + 2];
                 var crc = data.GetCrc16().ToArrayCrc();
-                data.CopyTo(dataCrc, 0);
-                dataCrc[^2] = crc[0];
-                dataCrc[^1] = crc[1];
+                data.CopyTo(writeData, 0);
+                writeData[^2] = crc[0];
+                writeData[^1] = crc[1];
 
-                if (dataCrc[1] == 0x02)
+                if (writeData[1] == 0x02)
                     Debug.Write("Отправка данных БУ -->\t");
-                else if (dataCrc[1] == 0x03)
+                else if (writeData[1] == 0x03)
                     Debug.Write("Отправка данных БП -->\t");
 
-                foreach (byte item in dataCrc)
+                foreach (byte item in writeData)
                 {
                     Debug.Write(item.ToString("X2" + " "));
                 }
@@ -96,8 +89,8 @@ namespace ServiceTools.Services.SerialPort.Services
                 // используем массив для временного хранения отправляемых данных в порт
                 // если ответ на этот запрос не пришел, то записываем эти данные обратно в очередь.
                 Array.Clear(sendData);
-                Array.Copy(dataCrc, sendData, dataCrc.Length);
-                _serialPortService.Write(dataCrc);
+                Array.Copy(writeData, sendData, writeData.Length);
+                _serialPortService.Write(writeData);
                 // включается таймер отсчета таймаута, на случай если ответ не придет.
                 _timeOutTimer.Start();
             }
@@ -105,6 +98,26 @@ namespace ServiceTools.Services.SerialPort.Services
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        /// <inheritdoc />
+        public void StopSendData()
+        {
+            if(_timeOutTimer.Enabled)
+                _timeOutTimer.Stop();
+
+            if(_sendDataTimer.Enabled) 
+                _sendDataTimer.Stop();
+        }
+
+        /// <inheritdoc />
+        public void StartSendData()
+        {
+            if(!_sendDataTimer.Enabled)
+                _sendDataTimer.Start();
+
+            if(!_timeOutTimer.Enabled)
+                _timeOutTimer.Start();
         }
 
         ~PortManager()
@@ -127,7 +140,6 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <param name="data"></param>
         private void SerialPortService_DataReceived(byte[] data)
         {
-            //_receivData.ReadData(data);
             RiseReceivedData(data);
             _timeOutTimer.Stop();
         }
@@ -152,6 +164,7 @@ namespace ServiceTools.Services.SerialPort.Services
         private void TimeOutTimer_Elapsed(object? sender, ElapsedEventArgs e)
         {
             _messageQueue.AddMessageToQueue(sendData);
+            _timeOutTimer.Stop();
         }
 
         /// <summary>

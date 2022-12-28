@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ServiceTools.Services.SerialPort.Interfaces;
+﻿using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Core.Extensions;
-using ServiceTools.Services.SerialPort.Tools;
 
 namespace ServiceTools.Services.SerialPort.Services
 {
+    /// <summary>
+    /// Организует очередь сообщений для отправки их ведомым устройствам.
+    /// </summary>
     public class MessageQueue : IMessageQueue
     {
         private readonly GlobalSettings _globalSettings;
@@ -18,24 +15,25 @@ namespace ServiceTools.Services.SerialPort.Services
          * [0] = [адрес ведущего 1 байт]
          * [1] = [адрес ведомого 1 байт]
          * [2] = [команда 1 байт]
-         * [3] = [длина сообщения 1 байт]
-         * [4] = [данные 0-251 байт]
-         * [5] = [CRC16-2 байта]
+         * [3] = [Номер сообщения 1 байт]
+         * [4] = [длина сообщения 1 байт]
+         * [5] = [данные 0-251 байт]
+         * [6-7] = [CRC16-2 байта]
          */
         private Queue<byte[]> _queue = new Queue<byte[]>();
-        private byte[] controlBlockData = new byte[6];
-        private byte[] pultData = new byte[6];
-        private int _messageCount = 0;
+        private byte[] controlBlockData = new byte[7];
+        private byte[] pultData = new byte[7];
+        private byte _messageCount = 0;
         /// <summary>
         /// Счетчик сообщений, по этому счетчику определяется
         /// какому устройству будет отправлен базовый запрос.
         /// </summary>
-        private int MessageCount
+        public byte MessageCount
         {
             get => _messageCount;
             set
             {//если произошло переполнение счетчика обнуляем его.
-                if (_messageCount == int.MaxValue)
+                if (_messageCount == byte.MaxValue)
                     _messageCount = 0;
 
                 _messageCount = value;
@@ -50,20 +48,23 @@ namespace ServiceTools.Services.SerialPort.Services
         public MessageQueue(GlobalSettings globalSettings)
         {
             _globalSettings = globalSettings;
+            // TODO - нужно убрать из конструктора.
             //Базовый запрос состояния блока управления.
-            controlBlockData[0] = _globalSettings.CompAddress;
-            controlBlockData[1] = _globalSettings.ControlBlockAddress;
-            controlBlockData[2] = 0x01;
-            controlBlockData[3] = 0x08;
-            controlBlockData[4] = 0x00;
-            controlBlockData[5] = 0x00;
+            controlBlockData[0] = _globalSettings.CompAddress; // адрес ведущего
+            controlBlockData[1] = _globalSettings.ControlBlockAddress; // адрес ведомого
+            controlBlockData[2] = 0x01; // команда
+            controlBlockData[3] = MessageCount; // номер сообщения.
+            controlBlockData[4] = 0x09; // длина сообщения.
+            controlBlockData[5] = 0x00; // CRC16
+            controlBlockData[6] = 0x00;
             //Базовый запрос состояния пульта.
             pultData[0] = _globalSettings.CompAddress;
             pultData[1] = _globalSettings.PultAddress;
             pultData[2] = 0x01;
-            pultData[3] = 0x08;
-            pultData[4] = 0x00;
+            pultData[3] = MessageCount;
+            pultData[4] = 0x09;
             pultData[5] = 0x00;
+            pultData[6] = 0x00;
         }
 
         /// <summary>
@@ -82,30 +83,24 @@ namespace ServiceTools.Services.SerialPort.Services
         /// <inheritdoc/>
         public byte[] ConstructorCommand(byte[] data, byte address, byte cmd)
         {
-            byte[] temp = new byte[data.Length + 4]; //+4 это байты которые необходимо добавить к общей длине посылки,
-            // это адрес ведущего, адрес ведомого, команда и длина сообщения.
+            byte[] temp = new byte[data.Length + 5]; //+4 это байты которые необходимо добавить к общей длине посылки,
+            // это адрес ведущего, адрес ведомого, команда, длина сообщения, номер посылки.
             temp[0] = _globalSettings.CompAddress;
             temp[1] = address;
             temp[2] = cmd;
-            temp[3] = (byte)((byte)temp.Length + 2);
-            Array.Copy(data, 0, temp, 4, data.Length);
-            //byte[] crc = temp.GetCrc16().ToArrayCrc();
-            //temp[^2] = crc[0];
-            //temp[^1] = crc[1];
+            temp[3] = MessageCount;
+            temp[4] = (byte)((byte)temp.Length + 2);
+            Array.Copy(data, 0, temp, 5, data.Length);
 
             return temp;
         }
-        /// <summary>
-        /// Возвращает из очереди сообщений первое сообщение и удаляет его из очереди,
-        /// если очередь пуста вернет базовое сообщение
-        /// для Блока управления или Пульта.
-        /// </summary>
-        /// <returns>Сообщение для отправки его устройству.</returns>
+
+        /// <inheritdoc />
         public byte[] GetMessageFromQueue()
         {
             if (_queue.TryDequeue(out byte[]? data))
             {
-                return data ?? throw new Exception("Из очереди сообщений \"MessageQueue\" не удалось извлеч сообщение.");
+                return data ?? throw new Exception("Из очереди сообщений \"MessageQueue\" не удалось извлечь сообщение.");
             }
             else
             {
