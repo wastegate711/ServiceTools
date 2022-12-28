@@ -15,8 +15,6 @@
     <ProjectReference Include="..\Services\ServiceTools.Services.SerialPort\ServiceTools.Services.SerialPort.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\Serial_port\" />
-    <Folder Include="Interfaces\Pult\" />
     <Folder Include="Services\Pult\Helpers\" />
   </ItemGroup>
 </Project>

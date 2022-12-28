@@ -1,9 +1,9 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using SerialPortService.Abstractions;
-using ServiceTools.Interfaces.Serial_port;
 using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Modules.PultBlock.ViewModels;
+using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Services.SerialPort.Interfaces;
 
 namespace ServiceTools.ViewModels

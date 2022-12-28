@@ -9,16 +9,17 @@ using ServiceTools.Services.SerialPort.Services;
 using SerialPortService.Abstractions;
 using SerialPortService.Services;
 using ServiceTools.Core.Extensions;
-using ServiceTools.Interfaces.Serial_port;
 using ServiceTools.Services.PultBlock.Interfaces.Helpers;
 using ServiceTools.Services.Serial_Port;
 using ServiceTools.Services.PultBlock.Helpers;
 using ServiceTools.Services.PultBlock.Interfaces.Services;
 using ServiceTools.Services.PultBlock.Services;
 using ServiceTools.Modules.PultBlock.ViewModels;
-using ServiceTools.Interfaces.Pult;
 using ServiceTools.Services.Pult;
 using ServiceTools.Modules.ControlBlock.ViewModels;
+using ServiceTools.Services.Pult.Interfaces;
+using ServiceTools.Services.Serial_Port.Interfaces;
+using ServiceTools.Models;
 
 namespace ServiceTools
 {
@@ -43,7 +44,9 @@ namespace ServiceTools
             containerRegistry.Register<IRequestsPult, RequestsPult>();
             containerRegistry.RegisterSingleton<ViewPultViewModel>();
             containerRegistry.Register<IResponseSortingPult, ResponseSortingPult>();
-            containerRegistry.RegisterSingleton<ViewAViewModel>();
+            containerRegistry.RegisterSingleton<ViewAViewModel>();//TODO - Переименовать
+            containerRegistry.RegisterSingleton<Pult>();
+            containerRegistry.RegisterSingleton<ControlBlock>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

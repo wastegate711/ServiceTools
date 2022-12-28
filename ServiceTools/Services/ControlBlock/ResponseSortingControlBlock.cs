@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ServiceTools.Interfaces.ControlBlock;
-using ServiceTools.Services.SerialPort.Interfaces;
+using ServiceTools.Services.ControlBlock.Interfaces;
 
 namespace ServiceTools.Services.ControlBlock
 {
