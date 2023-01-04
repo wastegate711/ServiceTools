@@ -20,6 +20,7 @@ using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Services.Pult.Interfaces;
 using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Models;
+using ServiceTools.Services.SerialPort.Tools;
 
 namespace ServiceTools
 {
@@ -47,6 +48,7 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<ViewAViewModel>();//TODO - Переименовать
             containerRegistry.RegisterSingleton<Pult>();
             containerRegistry.RegisterSingleton<ControlBlock>();
+            containerRegistry.Register<IMessageTools, MessageTools>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

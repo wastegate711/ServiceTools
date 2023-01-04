@@ -28,6 +28,6 @@
         /// </summary>
         public double RequestTimeOut { get; } = 490;
 
-        public string PortName { get; } = "com3";
+        public string PortName { get; } = "com6";
     }
 }
