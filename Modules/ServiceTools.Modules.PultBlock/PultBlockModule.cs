@@ -2,6 +2,9 @@
 using Prism.Modularity;
 using Prism.Regions;
 using ServiceTools.Core;
+using ServiceTools.Modules.PultBlock.Services;
+using ServiceTools.Modules.PultBlock.Services.Interfaces;
+using ServiceTools.Modules.PultBlock.ViewModels;
 using ServiceTools.Modules.PultBlock.Views;
 
 namespace ServiceTools.Modules.PultBlock
@@ -22,6 +25,8 @@ namespace ServiceTools.Modules.PultBlock
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<ViewPultViewModel>();
+            containerRegistry.Register<IRequestsPult, RequestsPult>();
             containerRegistry.RegisterForNavigation<ViewPult>();
         }
     }

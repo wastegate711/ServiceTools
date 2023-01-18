@@ -16,12 +16,7 @@ namespace ServiceTools.Services.SerialPort.Services
 
         private Timer _timeOutTimer = null!;
         private Timer _sendDataTimer = null!;
-        //private byte[] sendData = new byte[255];
         private List<byte> sendData = new List<byte>();
-        private int test1 = 0;
-        private int test2 = 0;
-        private int test3 = 0;
-        private int test4 = 0;
         private double TimeOutInterval { get; set; }
         private double SendDataInterval { get; set; }
         /// <inheritdoc/>
@@ -73,15 +68,12 @@ namespace ServiceTools.Services.SerialPort.Services
         {
             try
             {
-                test3 = data.Length;
                 //создаем массив, вычисляем для него CRC16 и отправляем в порт.
                 byte[] writeData = new byte[data.Length + 2];
-                test1 = writeData.Length;
                 var crc = data.GetCrc16().ToArrayCrc();
                 data.CopyTo(writeData, 0);
                 writeData[^2] = crc[0];
                 writeData[^1] = crc[1];
-
 
                 if (writeData[1] == 0x02)
                     Debug.Write("Отправка данных БУ -->\t");
@@ -96,10 +88,8 @@ namespace ServiceTools.Services.SerialPort.Services
                 Debug.WriteLine("");
                 // используем массив для временного хранения отправляемых данных в порт
                 // если ответ на этот запрос не пришел, то записываем эти данные обратно в очередь.
-                //Array.Clear(sendData);
                 sendData.Clear();
                 sendData.AddRange(writeData);
-                //Array.Copy(writeData, sendData, writeData.Length);
                 _serialPortService.Write(writeData);
                 // включается таймер отсчета таймаута, на случай если ответ не придет.
                 _timeOutTimer.Start();

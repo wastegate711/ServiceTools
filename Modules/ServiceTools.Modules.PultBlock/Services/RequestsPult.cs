@@ -1,9 +1,9 @@
 ﻿using ServiceTools.Core.Extensions;
-using ServiceTools.Services.PultBlock.Interfaces.Services;
 using ServiceTools.Core.Enums;
+using ServiceTools.Modules.PultBlock.Services.Interfaces;
 using ServiceTools.Services.SerialPort.Interfaces;
 
-namespace ServiceTools.Services.PultBlock.Services
+namespace ServiceTools.Modules.PultBlock.Services
 {
     public class RequestsPult : IRequestsPult
     {
