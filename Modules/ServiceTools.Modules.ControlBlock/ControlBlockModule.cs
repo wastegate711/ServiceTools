@@ -2,6 +2,7 @@
 using Prism.Modularity;
 using Prism.Regions;
 using ServiceTools.Core;
+using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Modules.ControlBlock.Views;
 
 namespace ServiceTools.Modules.ControlBlock
@@ -23,6 +24,7 @@ namespace ServiceTools.Modules.ControlBlock
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<ViewA>();
+            containerRegistry.Register<ViewAViewModel>();
         }
     }
 }

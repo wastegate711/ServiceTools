@@ -3,6 +3,8 @@ using Prism.Modularity;
 using ServiceTools.Modules.ControlBlock;
 using ServiceTools.Views;
 using System.Windows;
+using DryIoc;
+using Prism.Regions;
 using ServiceTools.Modules.PultBlock;
 using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.SerialPort.Services;
@@ -16,7 +18,9 @@ using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Services.Pult.Interfaces;
 using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Models;
+using ServiceTools.Modules.PultBlock.Views;
 using ServiceTools.Services.SerialPort.Tools;
+using ServiceTools.ViewModels;
 
 namespace ServiceTools
 {
@@ -25,9 +29,17 @@ namespace ServiceTools
     /// </summary>
     public partial class App
     {
+        public static IContainerProvider ContainerIoC { get; private set; }
+
         protected override Window CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            var moduleManager = Container.Resolve<IModuleManager>();
+            moduleManager.LoadModule("ViewPult");
+            MainWindow mainWindow =Container.Resolve<MainWindow>();
+            mainWindow.DataContext = Container.Resolve(typeof(MainWindowViewModel));
+            ContainerIoC = Container;
+
+            return mainWindow;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -43,12 +55,14 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<Pult>();
             containerRegistry.RegisterSingleton<ControlBlock>();
             containerRegistry.Register<IMessageTools, MessageTools>();
+            containerRegistry.Register<MainWindowViewModel>();
+            containerRegistry.Register<MainWindow>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ControlBlockModule>();
-            moduleCatalog.AddModule<PultBlockModule>();
+            moduleCatalog.AddModule<ControlBlockModule>().Initialize();
+            moduleCatalog.AddModule<PultBlockModule>("ViewPult");
         }
     }
 }

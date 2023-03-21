@@ -1,6 +1,7 @@
-﻿using Prism.Commands;
+﻿using System.Linq;
+using Prism.Commands;
+using Prism.Modularity;
 using Prism.Mvvm;
-using SerialPortService.Abstractions;
 using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Modules.PultBlock.ViewModels;
 using ServiceTools.Services.Serial_Port.Interfaces;
@@ -12,16 +13,16 @@ namespace ServiceTools.ViewModels
     {
         private readonly IPortManager _portManager;
         private readonly IReceivedData _receivedData;
-        private readonly ViewPultViewModel _viewPultViewModel;
         private readonly ViewAViewModel _viewAViewModel;
+        private readonly ViewPultViewModel _pultViewModel;
 
-        public MainWindowViewModel(IPortManager portManager, IReceivedData receivedData, ViewPultViewModel viewPultViewModel,
-            ViewAViewModel viewAViewModel)
+        public MainWindowViewModel(IPortManager portManager, IReceivedData receivedData,
+            ViewAViewModel viewAViewModel, ViewPultViewModel pultViewModel)
         {
             _portManager = portManager;
             _receivedData = receivedData;
-            _viewPultViewModel = viewPultViewModel;
             _viewAViewModel = viewAViewModel;
+            _pultViewModel = pultViewModel;
         }
 
         #region Заголовок окна
@@ -45,6 +46,8 @@ namespace ServiceTools.ViewModels
         {
             _portManager.Initialization();//инициализация таймеров и СОМ порта
             _receivedData.Initialization();
+            _pultViewModel.SerialNumber = "711345";
+            string n = _pultViewModel.SerialNumber;
         }
 
         #endregion

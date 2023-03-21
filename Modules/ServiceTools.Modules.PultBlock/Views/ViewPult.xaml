@@ -10,6 +10,9 @@
              xmlns:prism="http://prismlibrary.com/"
              d:DataContext="{d:DesignInstance Type=viewmodels:ViewPultViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True" >
+    <UserControl.DataContext>
+        <viewmodels:ViewPultViewModel />
+    </UserControl.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical">
             <!--Монетоприемник-->
@@ -44,7 +47,7 @@
             <!--Серийный номер-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Серийный номер:"/>
-                <TextBlock Text="{Binding SerialNumber}"/>
+                <TextBlock Text="{Binding SerialNumber, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Height="10"
                         Width="30"
                         Background="{Binding SerialNumberBrush}"

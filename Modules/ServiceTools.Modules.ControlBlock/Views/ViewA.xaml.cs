@@ -18,7 +18,7 @@ namespace ServiceTools.Modules.ControlBlock.Views
     /// <summary>
     /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class ViewA
+    public partial class ViewA : UserControl
     {
         public ViewA()
         {

@@ -7,13 +7,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        prism:ViewModelLocator.AutoWireViewModel="True"
+        
         xmlns:core="clr-namespace:ServiceTools.Core;assembly=ServiceTools.Core"
         Title="{Binding Title}"
         Height="550" Width="525" 
         WindowStartupLocation="CenterScreen"
         x:Name="ServiceToolsWindow"
-        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
     <!--Тригер события загрузки окна(без него событие не срабатывает)-->
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
