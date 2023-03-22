@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Regions;
 using Prism.Mvvm;
 using System.Windows.Media;
 
@@ -6,7 +7,7 @@ namespace ServiceTools.Modules.PultBlock.ViewModels
 {
     public class ViewPultViewModel : BindableBase
     {
-        public ViewPultViewModel()
+        public ViewPultViewModel(IRegionManager regionManager)
         {
 
         }

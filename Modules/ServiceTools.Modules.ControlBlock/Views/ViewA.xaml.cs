@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Prism.Ioc;
+using ServiceTools.Modules.ControlBlock.ViewModels;
 
 namespace ServiceTools.Modules.ControlBlock.Views
 {
@@ -20,9 +22,10 @@ namespace ServiceTools.Modules.ControlBlock.Views
     /// </summary>
     public partial class ViewA : UserControl
     {
-        public ViewA()
+        public ViewA(IContainerProvider containerProvider)
         {
             InitializeComponent();
+            DataContext = containerProvider.Resolve<ViewAViewModel>();
         }
     }
 }

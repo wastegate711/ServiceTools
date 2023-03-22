@@ -9,10 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:prism="http://prismlibrary.com/"
              d:DataContext="{d:DesignInstance Type=viewmodels:ViewPultViewModel}"
-             prism:ViewModelLocator.AutoWireViewModel="True" >
-    <UserControl.DataContext>
-        <viewmodels:ViewPultViewModel />
-    </UserControl.DataContext>
+             prism:ViewModelLocator.AutoWireViewModel="False" >
     <Grid>
         <StackPanel Orientation="Vertical">
             <!--Монетоприемник-->

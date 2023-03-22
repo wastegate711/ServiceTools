@@ -46,8 +46,24 @@ namespace ServiceTools.ViewModels
         {
             _portManager.Initialization();//инициализация таймеров и СОМ порта
             _receivedData.Initialization();
-            _pultViewModel.SerialNumber = "711345";
+            _pultViewModel.SerialNumber = "711345356654363";
             string n = _pultViewModel.SerialNumber;
+            _viewAViewModel.SerialNumber = "0987654321";
+            string b = _viewAViewModel.SerialNumber;
+        }
+
+        #endregion
+
+        #region Команда закрытия окна
+
+        private DelegateCommand _unloadCommand;
+
+        public DelegateCommand UnloadCommand =>
+            _unloadCommand ??= new DelegateCommand(UnloadWindowExecution);
+
+        private void UnloadWindowExecution()
+        {
+            App.Current.Shutdown();
         }
 
         #endregion

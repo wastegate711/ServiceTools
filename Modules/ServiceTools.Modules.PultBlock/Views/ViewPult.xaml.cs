@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
+using Prism.Ioc;
 using Prism.Regions;
+using ServiceTools.Modules.PultBlock.ViewModels;
 
 namespace ServiceTools.Modules.PultBlock.Views
 {
@@ -8,9 +10,10 @@ namespace ServiceTools.Modules.PultBlock.Views
     /// </summary>
     public partial class ViewPult
     {
-        public ViewPult()
+        public ViewPult(IContainerProvider containerProvider)
         {
             InitializeComponent();
+            DataContext = containerProvider.Resolve<ViewPultViewModel>();
         }
     }
 }

@@ -21,6 +21,7 @@ using ServiceTools.Models;
 using ServiceTools.Modules.PultBlock.Views;
 using ServiceTools.Services.SerialPort.Tools;
 using ServiceTools.ViewModels;
+using Prism.Mvvm;
 
 namespace ServiceTools
 {
@@ -35,8 +36,9 @@ namespace ServiceTools
         {
             var moduleManager = Container.Resolve<IModuleManager>();
             moduleManager.LoadModule("ViewPult");
+            moduleManager.LoadModule("ViewA");
             MainWindow mainWindow =Container.Resolve<MainWindow>();
-            mainWindow.DataContext = Container.Resolve(typeof(MainWindowViewModel));
+           // mainWindow.DataContext = Container.Resolve(typeof(MainWindowViewModel));
             ContainerIoC = Container;
 
             return mainWindow;
@@ -61,8 +63,13 @@ namespace ServiceTools
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ControlBlockModule>().Initialize();
-            moduleCatalog.AddModule<PultBlockModule>("ViewPult");
+            moduleCatalog.AddModule<ControlBlockModule>("ViewA").Initialize();
+            moduleCatalog.AddModule<PultBlockModule>("ViewPult").Initialize();
+        }
+
+        protected override void ConfigureViewModelLocator()
+        {
+            //ViewModelLocationProvider.Register<ViewPult, ViewPultViewModel>();
         }
     }
 }
