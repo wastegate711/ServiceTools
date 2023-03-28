@@ -2,6 +2,7 @@
 using Prism.Regions;
 using Prism.Mvvm;
 using System.Windows.Media;
+using Brush = System.Drawing.Brush;
 
 namespace ServiceTools.Modules.PultBlock.ViewModels
 {

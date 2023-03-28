@@ -5,6 +5,9 @@ using ServiceTools.Services.SerialPort.Interfaces;
 
 namespace ServiceTools.Modules.PultBlock.Services
 {
+    /// <summary>
+    /// Содержит команды формирующие данные для отправки запросов.
+    /// </summary>
     public class RequestsPult : IRequestsPult
     {
         private readonly GlobalSettings _globalSettings;

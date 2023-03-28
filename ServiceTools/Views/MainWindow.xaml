@@ -7,7 +7,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        
         xmlns:core="clr-namespace:ServiceTools.Core;assembly=ServiceTools.Core"
         Title="{Binding Title}"
         Height="550" Width="525" 
@@ -35,7 +34,7 @@
         </StatusBar>
 
         <!--Вкладки-->
-        <TabControl>
+        <TabControl SelectedIndex="1">
             <!--Вкладка Блок управления-->
             <TabItem prism:RegionManager.RegionName="{x:Static core:RegionNames.ControlBlockTab}"
                      Header="Блок управления"/>

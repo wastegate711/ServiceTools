@@ -8,6 +8,9 @@ using Timer = System.Timers.Timer;
 
 namespace ServiceTools.Services.SerialPort.Services
 {
+    /// <summary>
+    /// Задает настройки порта и ведет прием и передачу данных.
+    /// </summary>
     public class PortManager : IPortManager, IDisposable
     {
         private readonly ISerialPortService _serialPortService = null!;

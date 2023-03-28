@@ -46,9 +46,9 @@ namespace ServiceTools.ViewModels
         {
             _portManager.Initialization();//инициализация таймеров и СОМ порта
             _receivedData.Initialization();
-            _pultViewModel.SerialNumber = "711345356654363";
+            _pultViewModel.SerialNumber = "<=========>";
             string n = _pultViewModel.SerialNumber;
-            _viewAViewModel.SerialNumber = "0987654321";
+            _viewAViewModel.SerialNumber = "0987654321вап";
             string b = _viewAViewModel.SerialNumber;
         }
 
