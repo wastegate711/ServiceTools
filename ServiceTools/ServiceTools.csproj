@@ -6,6 +6,7 @@
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FontAwesome5.WPF" Version="1.0.5" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
