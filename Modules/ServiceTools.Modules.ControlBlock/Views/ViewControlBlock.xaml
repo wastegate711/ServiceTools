@@ -9,7 +9,7 @@
              d:DesignHeight="500" d:DesignWidth="500"
              xmlns:prism="http://prismlibrary.com/" 
              d:DataContext="{d:DesignInstance Type=viewmodels:ViewControlBlockViewModel, IsDesignTimeCreatable=True}"
-             prism:ViewModelLocator.AutoWireViewModel="True" >
+             prism:ViewModelLocator.AutoWireViewModel="False" >
     <DockPanel>
         <StackPanel DockPanel.Dock="Top"
                     Orientation="Vertical">

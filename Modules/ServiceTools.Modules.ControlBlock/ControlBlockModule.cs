@@ -26,7 +26,8 @@ namespace ServiceTools.Modules.ControlBlock
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<ViewControlBlock>();
-            containerRegistry.Register<ViewControlBlockViewModel>();
+            containerRegistry.RegisterSingleton<ViewControlBlockViewModel>();
+            containerRegistry.Register<ViewControlBlock>();
         }
     }
 }
