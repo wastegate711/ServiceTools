@@ -76,13 +76,11 @@ namespace ServiceTools.Services.SerialPort.Services
             {
                 return data ?? throw new Exception("Из очереди сообщений \"MessageQueue\" не удалось извлечь сообщение.");
             }
-            else
-            {
-                MessageCount++;
 
-                //return MessageCount % 2 == 0 ? controlBlockData : pultData;
-                return MessageCount % 2 == 1 ? controlBlockData : pultData;
-            }
+            MessageCount++;
+
+            //return MessageCount % 2 == 0 ? controlBlockData : pultData;
+            return MessageCount % 2 == 1 ? controlBlockData : pultData;
         }
     }
 }

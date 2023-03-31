@@ -9,18 +9,13 @@ using ServiceTools.Services.SerialPort.Services;
 using SerialPortService.Abstractions;
 using SerialPortService.Services;
 using ServiceTools.Core.Extensions;
-using ServiceTools.Services.PultBlock.Interfaces.Helpers;
 using ServiceTools.Services.Serial_Port;
-using ServiceTools.Services.PultBlock.Helpers;
-using ServiceTools.Services.PultBlock.Interfaces.Services;
-using ServiceTools.Services.PultBlock.Services;
-using ServiceTools.Modules.PultBlock.ViewModels;
 using ServiceTools.Services.Pult;
-using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Services.Pult.Interfaces;
 using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Models;
 using ServiceTools.Services.SerialPort.Tools;
+using ServiceTools.ViewModels;
 
 namespace ServiceTools
 {
@@ -29,9 +24,18 @@ namespace ServiceTools
     /// </summary>
     public partial class App
     {
+        public static IContainerProvider ContainerIoC { get; private set; }
+
         protected override Window CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            var moduleManager = Container.Resolve<IModuleManager>();
+            moduleManager.LoadModule("ViewPult");
+            moduleManager.LoadModule("ViewA");
+            MainWindow mainWindow =Container.Resolve<MainWindow>();
+           // mainWindow.DataContext = Container.Resolve(typeof(MainWindowViewModel));
+            ContainerIoC = Container;
+
+            return mainWindow;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -41,20 +45,25 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<ISerialPortService, Serial_Port>();
             containerRegistry.RegisterSingleton<IPortManager, PortManager>();
             containerRegistry.RegisterSingleton<IReceivedData, ReceivedData>();
-            containerRegistry.Register<IConstructorPult, ConstructorPult>();
-            containerRegistry.Register<IRequestsPult, RequestsPult>();
-            containerRegistry.RegisterSingleton<ViewPultViewModel>();
+            //containerRegistry.RegisterSingleton<ViewPultViewModel>();
             containerRegistry.Register<IResponseSortingPult, ResponseSortingPult>();
-            containerRegistry.RegisterSingleton<ViewAViewModel>();//TODO - Переименовать
-            containerRegistry.RegisterSingleton<Pult>();
+            //containerRegistry.RegisterSingleton<ViewAViewModel>();//TODO - Переименовать
+            //containerRegistry.RegisterSingleton<Pult>();
             containerRegistry.RegisterSingleton<ControlBlock>();
             containerRegistry.Register<IMessageTools, MessageTools>();
+            containerRegistry.Register<MainWindowViewModel>();
+            containerRegistry.Register<MainWindow>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ControlBlockModule>();
-            moduleCatalog.AddModule<PultBlockModule>();
+            moduleCatalog.AddModule<ControlBlockModule>("ViewA").Initialize();//TODO - Переименовать
+            moduleCatalog.AddModule<PultBlockModule>("ViewPult").Initialize();
+        }
+
+        protected override void ConfigureViewModelLocator()
+        {
+            //ViewModelLocationProvider.Register<ViewPult, ViewPultViewModel>();
         }
     }
 }

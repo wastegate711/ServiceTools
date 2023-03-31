@@ -6,12 +6,12 @@
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FontAwesome5.WPF" Version="1.0.5" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modules\ServiceTools.Modules.ControlBlock\ServiceTools.Modules.ControlBlock.csproj" />
     <ProjectReference Include="..\Modules\ServiceTools.Modules.PultBlock\ServiceTools.Modules.PultBlock.csproj" />
-    <ProjectReference Include="..\Services\ServiceTools.Services.PultBlock\ServiceTools.Services.PultBlock.csproj" />
     <ProjectReference Include="..\Services\ServiceTools.Services.SerialPort\ServiceTools.Services.SerialPort.csproj" />
   </ItemGroup>
   <ItemGroup>

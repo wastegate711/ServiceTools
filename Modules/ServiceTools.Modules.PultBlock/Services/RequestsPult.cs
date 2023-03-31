@@ -1,10 +1,13 @@
 ﻿using ServiceTools.Core.Extensions;
-using ServiceTools.Services.PultBlock.Interfaces.Services;
 using ServiceTools.Core.Enums;
+using ServiceTools.Modules.PultBlock.Services.Interfaces;
 using ServiceTools.Services.SerialPort.Interfaces;
 
-namespace ServiceTools.Services.PultBlock.Services
+namespace ServiceTools.Modules.PultBlock.Services
 {
+    /// <summary>
+    /// Содержит команды формирующие данные для отправки запросов.
+    /// </summary>
     public class RequestsPult : IRequestsPult
     {
         private readonly GlobalSettings _globalSettings;
@@ -126,6 +129,33 @@ namespace ServiceTools.Services.PultBlock.Services
                 new byte[] { (byte)state },
                 _globalSettings.PultAddress,
                 (byte)Command.LockCoinAcceptor);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetCoinAcceptorChanel1()
+        {
+            return _messageTools.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.PultAddress,
+                (byte)Command.SetCoinAcceptorChanel1);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetCoinAcceptorChanel2()
+        {
+            return _messageTools.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.PultAddress,
+                (byte)Command.SetCoinAcceptorChanel2);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetCoinAcceptorChanel3()
+        {
+            return _messageTools.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.PultAddress,
+                (byte)Command.SetCoinAcceptorChanel3);
         }
     }
 }

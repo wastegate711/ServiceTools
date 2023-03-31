@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:prism="http://prismlibrary.com/" 
              d:DataContext="{d:DesignInstance Type=viewmodels:ViewAViewModel}"
-             prism:ViewModelLocator.AutoWireViewModel="True" >
+             prism:ViewModelLocator.AutoWireViewModel="False" >
     <DockPanel>
         <StackPanel DockPanel.Dock="Top"
                     Orientation="Vertical">
@@ -114,7 +114,7 @@
             <StackPanel Orientation="Horizontal">
                 <Label Content="Серийный номер:"
                        VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding SerialNumber}"
+                <TextBlock Text="{Binding SerialNumber, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center"/>
             </StackPanel>
             <!--Дата/Время-->

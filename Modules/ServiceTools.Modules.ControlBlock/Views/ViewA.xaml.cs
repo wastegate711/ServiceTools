@@ -12,17 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Prism.Ioc;
+using ServiceTools.Modules.ControlBlock.ViewModels;
 
 namespace ServiceTools.Modules.ControlBlock.Views
 {
     /// <summary>
     /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class ViewA
+    public partial class ViewA : UserControl
     {
-        public ViewA()
+        public ViewA(IContainerProvider containerProvider)
         {
             InitializeComponent();
+            DataContext = containerProvider.Resolve<ViewAViewModel>();
         }
     }
 }
