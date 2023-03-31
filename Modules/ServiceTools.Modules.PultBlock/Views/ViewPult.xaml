@@ -26,7 +26,8 @@
                                 Command="{Binding CoinAcceptorChanel1Command}"
                                 Margin="10,0">
                                 <Button.Content>
-                                    <fa:ImageAwesome Icon="Plus"/>
+                                    <fa:ImageAwesome Icon="Plus"
+                                                     Foreground="{Binding CoinAcceptorChanel1RequestBrush}"/>
                                 </Button.Content>
                         </Button>
                         <TextBlock Text="Стоимость"
@@ -67,6 +68,11 @@
                         <CheckBox Content="Активировать"
                                   Margin="10"/>
                     </StackPanel>
+                    <!--Блокировка монетоприемника-->
+                    <CheckBox Content="Блокировка монетоприемника"
+                              IsChecked="{Binding BlockingCoinAcceptorCheck}"
+                              Command="{Binding BlockingCoinAcceptor}"
+                              CommandParameter="{Binding BlockingCoinAcceptorCheck}"/>
                 </StackPanel>
             </GroupBox>
             <!--Серийный номер-->
@@ -158,7 +164,8 @@
                          MinWidth="50"/>
                 <Button Height="10"
                         Width="30"
-                        Command="{Binding DisplayValueCommand}"/>
+                        Command="{Binding DisplayValueCommand}"
+                        Background="{Binding DisplayValueButtonBrush}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

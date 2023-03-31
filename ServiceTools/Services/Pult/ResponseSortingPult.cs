@@ -139,7 +139,32 @@ namespace ServiceTools.Services.Pult
                 case (byte)Command.LockCoinAcceptor://0x2E Управление блокировкой монетоприемника
 
                     break;
+                //0x2F Запрос состояния подсветки кнопки Средство от насекомых
+                case (byte)Command.GetBacklightButtonInsect: 
+                    break;
+                //0x30 Запрос состояния подсветки кнопки Пена
+                case (byte)Command.GetBacklightButtonFoam:
+                    break;
+                //0x31 Запрос состояния подсветки кнопки Пена + вода
+                case (byte)Command.GetBacklightButtonFoamWater:
+                    break;
+                //0x32 Запрос состояния подсветки кнопки Горячая вода
+                case (byte)Command.GetBacklightButtonHotWater:
+                    break;
+                //0x33 Запрос состояния подсветки кнопки Холодная вода
+                case (byte)Command.GetBacklightButtonCoolWater:
+                    break;
+                //0x34 Запрос состояния подсветки кнопки Воск
+                case (byte)Command.GetBacklightButtonVosk:
+                    break;
+                //0x35 Запрос состояния подсветки кнопки Осмос
+                case (byte)Command.GetBacklightButtonOsmos:
+                    break;
+                //0x36 Запрос состояния подсветки кнопки Стоп
+                case (byte)Command.GetBacklightButtonStop:
+                    break;
                 default:
+                    // TODO - Добавить логирование неизвестной команды
                     break;
             }
         }

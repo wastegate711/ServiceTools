@@ -85,4 +85,22 @@ public interface IRequestsPult
     /// <param name="state">Состояние On-Включено/Off-выключено</param>
     /// <returns>Вернет массив готовый к отправке устройству.</returns>
     byte[] SetLockCoinAcceptor(State state);
+
+    /// <summary>
+    /// Команда начислить средства по 1 каналу монетоприемника
+    /// </summary>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetCoinAcceptorChanel1();
+
+    /// <summary>
+    /// Команда начислить средства по 2 каналу монетоприемника
+    /// </summary>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetCoinAcceptorChanel2();
+
+    /// <summary>
+    /// Команда начислить средства по 3 каналу монетоприемника
+    /// </summary>
+    /// <returns>Вернет массив готовый к отправке устройству.</returns>
+    byte[] SetCoinAcceptorChanel3();
 }

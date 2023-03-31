@@ -130,5 +130,32 @@ namespace ServiceTools.Modules.PultBlock.Services
                 _globalSettings.PultAddress,
                 (byte)Command.LockCoinAcceptor);
         }
+
+        /// <inheritdoc />
+        public byte[] SetCoinAcceptorChanel1()
+        {
+            return _messageTools.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.PultAddress,
+                (byte)Command.SetCoinAcceptorChanel1);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetCoinAcceptorChanel2()
+        {
+            return _messageTools.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.PultAddress,
+                (byte)Command.SetCoinAcceptorChanel2);
+        }
+
+        /// <inheritdoc />
+        public byte[] SetCoinAcceptorChanel3()
+        {
+            return _messageTools.ConstructorCommand(
+                new byte[] { 0 },
+                _globalSettings.PultAddress,
+                (byte)Command.SetCoinAcceptorChanel3);
+        }
     }
 }
