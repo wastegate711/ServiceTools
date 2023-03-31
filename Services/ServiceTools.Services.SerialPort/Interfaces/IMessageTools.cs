@@ -1,6 +1,6 @@
-﻿namespace ServiceTools.Services.ControlBlock.Interfaces.Helpers;
+﻿namespace ServiceTools.Services.SerialPort.Interfaces;
 
-public interface IConstructorControlBlock
+public interface IMessageTools
 {
     /// <summary>
     /// Конструктор запросов, собирает из данных готовую к отправке посылку.
@@ -9,7 +9,7 @@ public interface IConstructorControlBlock
     /// <param name="address">Адрес устройства</param>
     /// <param name="cmd">Команда</param>
     /// <returns></returns>
-    byte[] ConstructorCommand(byte[] data, byte address, byte cmd);
+    public byte[] ConstructorCommand(byte[] data, byte address, byte cmd);
 
     /// <summary>
     /// Извекает данные из входящих сообщений.

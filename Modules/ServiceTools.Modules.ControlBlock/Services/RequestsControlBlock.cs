@@ -1,25 +1,25 @@
 ﻿using ServiceTools.Core.Extensions;
 using ServiceTools.Core.Enums;
-using ServiceTools.Services.ControlBlock.Interfaces;
-using ServiceTools.Services.ControlBlock.Interfaces.Helpers;
+using ServiceTools.Modules.ControlBlock.Services.Interfaces;
+using ServiceTools.Services.SerialPort.Interfaces;
 
-namespace ServiceTools.Services.ControlBlock.Services
+namespace ServiceTools.Modules.ControlBlock.Services
 {
     public class RequestsControlBlock : IRequestsControlBlock
     {
         private readonly GlobalSettings _globalSettings;
-        private readonly IConstructorControlBlock _constructorControlBlock;
+        private readonly IMessageTools _messageTools;
 
-        public RequestsControlBlock(GlobalSettings globalSettings, IConstructorControlBlock constructorControlBlock)
+        public RequestsControlBlock(GlobalSettings globalSettings, IMessageTools messageTools)
         {
             _globalSettings = globalSettings;
-            _constructorControlBlock = constructorControlBlock;
+            _messageTools = messageTools;
         }
 
         /// <inheritdoc />
         public byte[] SetValveCoolWater(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveCoolWater);
@@ -28,7 +28,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] SetValveHotWater(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveHotWater);
@@ -37,7 +37,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] SetValveAir(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveAir);
@@ -46,7 +46,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] SetValveOsmos(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveOsmos);
@@ -55,7 +55,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] SetValveFoam(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveFoam);
@@ -64,7 +64,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] SetValveDrop(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveDrop);
@@ -73,7 +73,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] SetValveInsect(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetValveInsect);
@@ -82,7 +82,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] SetDispenserFoam(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetDispenserFoam);
@@ -91,7 +91,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] SetDispenserVosk(State state)
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { (byte)state },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.SetDispenserVosk);
@@ -100,7 +100,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetValveCoolWater()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveCoolWater);
@@ -109,7 +109,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetValveHotWater()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveHotWater);
@@ -118,7 +118,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetValveOsmos()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveOsmos);
@@ -127,7 +127,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetValveAir()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveAir);
@@ -136,7 +136,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetValveInsect()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveInsect);
@@ -145,7 +145,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetValveFoam()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveFoam);
@@ -154,7 +154,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetValveDrop()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetValveDrop);
@@ -163,7 +163,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetDispenserFoam()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetDispenserFoam);
@@ -172,7 +172,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetDispenserVosk()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetDispenserVosk);
@@ -181,7 +181,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetSensorStream()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetSensorStream);
@@ -190,7 +190,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetSerialNumber()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetSerialNumber);
@@ -199,7 +199,7 @@ namespace ServiceTools.Services.ControlBlock.Services
         /// <inheritdoc />
         public byte[] GetSoftwareVersion()
         {
-            return _constructorControlBlock.ConstructorCommand(
+            return _messageTools.ConstructorCommand(
                 new byte[] { 0 },
                 _globalSettings.ControlBlockAddress,
                 (byte)Command.GetSoftwareVersion);

@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\Helpers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\ServiceTools.Core\ServiceTools.Core.csproj" />
+    <ProjectReference Include="..\ServiceTools.Services.SerialPort\ServiceTools.Services.SerialPort.csproj" />
   </ItemGroup>
 
 </Project>

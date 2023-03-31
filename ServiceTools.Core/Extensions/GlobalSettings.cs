@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ServiceTools.Core.Extensions
+﻿namespace ServiceTools.Core.Extensions
 {
     public class GlobalSettings
     {
@@ -27,5 +21,13 @@ namespace ServiceTools.Core.Extensions
         /// Интервал отправки сообщений в сеть RS-485
         /// </summary>
         public double RequestInterval { get; } = 500;
+
+        /// <summary>
+        /// Таймаут отправки сообщений.(эта величена должна быть меньше RequestInterval иначе таймаут
+        /// будет срабатывать не вовремя.)
+        /// </summary>
+        public double RequestTimeOut { get; } = 490;
+
+        public string PortName { get; } = "com6";
     }
 }

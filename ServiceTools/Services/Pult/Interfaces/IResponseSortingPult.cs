@@ -1,4 +1,4 @@
-﻿namespace ServiceTools.Interfaces.Pult;
+﻿namespace ServiceTools.Services.Pult.Interfaces;
 
 public interface IResponseSortingPult
 {

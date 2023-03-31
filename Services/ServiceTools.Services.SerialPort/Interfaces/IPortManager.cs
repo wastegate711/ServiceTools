@@ -18,4 +18,14 @@ public interface IPortManager
     /// Срабатывает при получении данных из порта.
     /// </summary>
     event Action<byte[]> ReceivedData;
+
+    /// <summary>
+    /// Останавливает передачу сообщений в сеть RS-485
+    /// </summary>
+    void StopSendData();
+
+    /// <summary>
+    /// Запускает передачу сообщений в сеть RS-485
+    /// </summary>
+    void StartSendData();
 }

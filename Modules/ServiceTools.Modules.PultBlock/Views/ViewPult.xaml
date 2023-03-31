@@ -3,13 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ServiceTools.Modules.PultBlock.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              xmlns:viewmodels="clr-namespace:ServiceTools.Modules.PultBlock.ViewModels"
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="500" d:DesignWidth="500"
              xmlns:prism="http://prismlibrary.com/"
              d:DataContext="{d:DesignInstance Type=viewmodels:ViewPultViewModel}"
-             prism:ViewModelLocator.AutoWireViewModel="True" >
+             prism:ViewModelLocator.AutoWireViewModel="False" >
     <Grid>
         <StackPanel Orientation="Vertical">
             <!--Монетоприемник-->
@@ -17,11 +18,25 @@
                 <StackPanel Orientation="Vertical">
                     <!--1 Канал-->
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="1 Канал:"/>
-                        <TextBlock Text="{Binding CoinAcceptorChanel1}"/>
-                        <Button Height="10"
-                                Width="30"
-                                Command="{Binding CoinAcceptorChanel1Command}"/>
+                        <Label Content="1 Канал:"
+                               HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding CoinAcceptorChanel1}"
+                                   Width="100"/>
+                        <Button Height="20"
+                                Command="{Binding CoinAcceptorChanel1Command}"
+                                Margin="10,0">
+                                <Button.Content>
+                                    <fa:ImageAwesome Icon="Plus"
+                                                     Foreground="{Binding CoinAcceptorChanel1RequestBrush}"/>
+                                </Button.Content>
+                        </Button>
+                        <TextBlock Text="Стоимость"
+                                   Margin="10"/>
+                        <TextBox Width="100"
+                                 Height="20"
+                                 Text="{Binding CoinAcceptorChanel1Cost}"/>
+                        <CheckBox Content="Активировать"
+                                  Margin="10"/>
                     </StackPanel>
                     <!--2 Канал-->
                     <StackPanel Orientation="Horizontal">
@@ -30,6 +45,13 @@
                         <Button Height="10"
                                 Width="30"
                                 Command="{Binding CoinAcceptorChanel2Command}"/>
+                        <TextBlock Text="Стоимость"
+                                   Margin="10"/>
+                        <TextBox Width="100"
+                                 Height="20"
+                                 Text="{Binding CoinAcceptorChanel1Cost}"/>
+                        <CheckBox Content="Активировать"
+                                  Margin="10"/>
                     </StackPanel>
                     <!--3 Канал-->
                     <StackPanel Orientation="Horizontal">
@@ -38,13 +60,25 @@
                         <Button Height="10"
                                 Width="30"
                                 Command="{Binding CoinAcceptorChanel3Command}"/>
+                        <TextBlock Text="Стоимость"
+                                   Margin="10"/>
+                        <TextBox Width="100"
+                                 Height="20"
+                                 Text="{Binding CoinAcceptorChanel1Cost}"/>
+                        <CheckBox Content="Активировать"
+                                  Margin="10"/>
                     </StackPanel>
+                    <!--Блокировка монетоприемника-->
+                    <CheckBox Content="Блокировка монетоприемника"
+                              IsChecked="{Binding BlockingCoinAcceptorCheck}"
+                              Command="{Binding BlockingCoinAcceptor}"
+                              CommandParameter="{Binding BlockingCoinAcceptorCheck}"/>
                 </StackPanel>
             </GroupBox>
             <!--Серийный номер-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Серийный номер:"/>
-                <TextBlock Text="{Binding SerialNumber}"/>
+                <TextBlock Text="{Binding SerialNumber, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Height="10"
                         Width="30"
                         Background="{Binding SerialNumberBrush}"
@@ -130,7 +164,8 @@
                          MinWidth="50"/>
                 <Button Height="10"
                         Width="30"
-                        Command="{Binding DisplayValueCommand}"/>
+                        Command="{Binding DisplayValueCommand}"
+                        Background="{Binding DisplayValueButtonBrush}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

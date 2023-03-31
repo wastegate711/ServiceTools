@@ -1,6 +1,6 @@
 ﻿using ServiceTools.Core.Enums;
 
-namespace ServiceTools.Services.ControlBlock.Interfaces;
+namespace ServiceTools.Modules.ControlBlock.Services.Interfaces;
 
 public interface IRequestsControlBlock
 {

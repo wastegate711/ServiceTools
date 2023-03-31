@@ -1,13 +1,8 @@
-﻿using ServiceTools.Interfaces.Pult;
-using ServiceTools.Interfaces.Serial_port;
+﻿using ServiceTools.Services.Pult.Interfaces;
+using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.SerialPort.Tools;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceTools.Services.Serial_Port
 {
@@ -16,8 +11,9 @@ namespace ServiceTools.Services.Serial_Port
          * [0] = [адрес ведущего 1 байт]
          * [1] = [адрес ведомого 1 байт]
          * [2] = [команда 1 байт]
-         * [3] = [длина сообщения 1 байт]
-         * [4] = [данные 0-251 байт]
+         * [3] = [Номер сообщения 1 байт]
+         * [4] = [длина сообщения 1 байт]
+         * [5] = [данные 0-251 байт]
          * [^2] = [CRC16-2 байта]
          * [^1] = [CRC16-2 байта]
          */
@@ -25,8 +21,8 @@ namespace ServiceTools.Services.Serial_Port
     {
         private readonly IPortManager _portManager;
         private readonly IResponseSortingPult _responseSortingPult;
-        private const byte controlBlockAddr = 0x02; //адрес блока управления
-        private const byte pultBlockAddr = 0x03; //адрес пульта
+        private const byte ControlBlockAddr = 0x02; //адрес блока управления
+        private const byte PultBlockAddr = 0x03; //адрес пульта
 
         public ReceivedData(IPortManager portManager, IResponseSortingPult responseSortingPult)
         {
@@ -45,7 +41,7 @@ namespace ServiceTools.Services.Serial_Port
             {
                 switch (aData[1])//определяем от какого блока пришли данные.
                 {
-                    case controlBlockAddr:
+                    case ControlBlockAddr:
                         Debug.Write("Входящие данные БУ<--\t");
 
                         foreach (byte item in aData)
@@ -57,7 +53,7 @@ namespace ServiceTools.Services.Serial_Port
 
 
                         break;
-                    case pultBlockAddr:
+                    case PultBlockAddr:
                         Debug.Write("Входящие данные БП<--\t");
 
                         foreach (byte item in aData)
