@@ -2,6 +2,8 @@
 using Prism.Modularity;
 using Prism.Regions;
 using ServiceTools.Core;
+using ServiceTools.Modules.ControlBlock.Services;
+using ServiceTools.Modules.ControlBlock.Services.Interfaces;
 using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Modules.ControlBlock.Views;
 
@@ -28,6 +30,7 @@ namespace ServiceTools.Modules.ControlBlock
             containerRegistry.RegisterForNavigation<ViewControlBlock>();
             containerRegistry.RegisterSingleton<ViewControlBlockViewModel>();
             containerRegistry.Register<ViewControlBlock>();
+            containerRegistry.Register<IRequestsControlBlock, RequestsControlBlock>();
         }
     }
 }

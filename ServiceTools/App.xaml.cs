@@ -10,7 +10,6 @@ using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Models;
 using ServiceTools.Services.SerialPort.Tools;
 using ServiceTools.ViewModels;
-using System;
 using System.Windows;
 using Prism.Ioc;
 using Prism.Modularity;

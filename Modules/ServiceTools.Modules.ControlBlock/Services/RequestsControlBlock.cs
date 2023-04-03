@@ -5,6 +5,9 @@ using ServiceTools.Services.SerialPort.Interfaces;
 
 namespace ServiceTools.Modules.ControlBlock.Services
 {
+    /// <summary>
+    /// Содержит готовые к отправке запросы для Блока управления.
+    /// </summary>
     public class RequestsControlBlock : IRequestsControlBlock
     {
         private readonly GlobalSettings _globalSettings;

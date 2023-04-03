@@ -6,6 +6,7 @@ using ServiceTools.Services.SerialPort.Interfaces;
 using System;
 using System.Globalization;
 using System.Windows.Media;
+using ServiceTools.Modules.ControlBlock.Services.Interfaces;
 
 namespace ServiceTools.Modules.ControlBlock.ViewModels
 {
@@ -14,23 +15,29 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
         private readonly IMessageQueue _messageQueue;
         private readonly GlobalSettings _globalSettings;
         private readonly IMessageTools _messageTools;
+        private readonly IRequestsControlBlock _requestsControlBlock;
 
         public ViewControlBlockViewModel(
             IMessageQueue messageQueue,
             GlobalSettings globalSettings,
-            IMessageTools messageTools)
+            IMessageTools messageTools,
+            IRequestsControlBlock requestsControlBlock)
         {
             _messageQueue = messageQueue;
             _globalSettings = globalSettings;
             _messageTools = messageTools;
+            _requestsControlBlock = requestsControlBlock;
             DateTimeDevice = DateTime.Now.ToString(CultureInfo.CurrentCulture);
         }
         //Свойства
 
         #region Версия SW
 
-        private string _versionSwPult;
+        private string _versionSwPult = "*.*v";
 
+        /// <summary>
+        /// Версия программы устройства.
+        /// </summary>
         public string VersionSwPult
         {
             get => _versionSwPult;
@@ -41,7 +48,7 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         #region Серийный номер
 
-        private string _serialNumber = "123";
+        private string _serialNumber = "*****";
 
         /// <summary>
         /// Содержит UID устройства
@@ -73,6 +80,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _valveOsmosBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки Осмос
+        /// </summary>
         public SolidColorBrush ValveOsmosBrush
         {
             get => _valveOsmosBrush;
@@ -85,6 +95,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _coolWaterBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки Холодная вода.
+        /// </summary>
         public SolidColorBrush CoolWaterBrush
         {
             get => _coolWaterBrush;
@@ -97,6 +110,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _hotWaterBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки Горячая вода.
+        /// </summary>
         public SolidColorBrush HotWaterBrush
         {
             get => _hotWaterBrush;
@@ -109,6 +125,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _valveFoamBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки клапан Пена.
+        /// </summary>
         public SolidColorBrush ValveFoamBrush
         {
             get => _valveFoamBrush;
@@ -121,6 +140,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _valveAirBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки клапан Воздух.
+        /// </summary>
         public SolidColorBrush ValveAirBrush
         {
             get => _valveAirBrush;
@@ -133,6 +155,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _valveInsectBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки клана Средство от насекомых.
+        /// </summary>
         public SolidColorBrush ValveInsectBrush
         {
             get => _valveInsectBrush;
@@ -145,6 +170,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _dispenserFoamBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки дозатора Пена.
+        /// </summary>
         public SolidColorBrush DispenserFoamBrush
         {
             get => _dispenserFoamBrush;
@@ -157,6 +185,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _dispenserVoskBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки дозатора Воск.
+        /// </summary>
         public SolidColorBrush DispenserVoskBrush
         {
             get => _dispenserVoskBrush;
@@ -169,6 +200,9 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private SolidColorBrush _valveDropBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки Клапан сброс.
+        /// </summary>
         public SolidColorBrush ValveDropBrush
         {
             get => _valveDropBrush;
@@ -179,8 +213,11 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         #region Цвет кнопки Запрос серийного номера устройства
 
-        private SolidColorBrush _serialNumberBrush = Brushes.Yellow;
+        private SolidColorBrush _serialNumberBrush = Brushes.Red;
 
+        /// <summary>
+        /// Цвет кнопки Запрос серийного номера устройства.
+        /// </summary>
         public SolidColorBrush SerialNumberBrush
         {
             get => _serialNumberBrush;
@@ -189,17 +226,37 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         #endregion
 
+        #region Цвет кнопки запроса версии программы устройства
+
+        private SolidColorBrush _getSoftwareVersionBrush = Brushes.Red;
+
+        /// <summary>
+        /// Цвет кнопки запроса версии программы устройства
+        /// </summary>
+        public SolidColorBrush GetSoftwareVersionBrush
+        {
+            get => _getSoftwareVersionBrush;
+            set => SetProperty(ref _getSoftwareVersionBrush, value);
+        }
+
+        #endregion
+
         //Команды
 
-        #region Версия SW команда
+        #region Версия SoftWare команда
 
         private DelegateCommand _versionSwCommand;
 
-        public DelegateCommand VersionSwCommand =>
-            _versionSwCommand ?? (_versionSwCommand = new DelegateCommand(ExecuteVersionSW));
+        /// <summary>
+        /// Версия программы устройства.
+        /// </summary>
+        public DelegateCommand VersionSoftwareCommand =>
+            _versionSwCommand ??= new DelegateCommand(ExecuteVersionSoftWare);
 
-        private void ExecuteVersionSW()
+        private void ExecuteVersionSoftWare()
         {
+            GetSoftwareVersionBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.GetSoftwareVersion());
         }
 
         #endregion
@@ -208,15 +265,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _serialNumberCommand;
 
+        /// <summary>
+        /// Запрос серийного номера устройства.
+        /// </summary>
         public DelegateCommand SerialNumberCommand =>
-            _serialNumberCommand ?? (_serialNumberCommand = new DelegateCommand(ExecuteSerialNumber));
+            _serialNumberCommand ??= new DelegateCommand(ExecuteSerialNumber);
 
-        void ExecuteSerialNumber()
+        private void ExecuteSerialNumber()
         {
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                new byte[] { 0 },
-                _globalSettings.ControlBlockAddress,
-                (byte)Command.GetSerialNumber));
+            SerialNumberBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.GetSerialNumber());
         }
 
         #endregion
@@ -225,15 +283,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _valveDropCommand;
 
+        /// <summary>
+        /// Управление состоянием клапана Сброса.
+        /// </summary>
         public DelegateCommand ValveDropCommand =>
-            _valveDropCommand ?? (_valveDropCommand = new DelegateCommand(ExecuteValveDrop));
+            _valveDropCommand ??= new DelegateCommand(ExecuteValveDrop);
 
-        void ExecuteValveDrop()
+        private void ExecuteValveDrop()
         {
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                new byte[] { 1 },
-                _globalSettings.ControlBlockAddress,
-                (byte)Command.SetValveDrop));
+            ValveDropBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetValveDrop(State.On));
         }
 
         #endregion
@@ -242,15 +301,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _dispenserVoskCommand;
 
+        /// <summary>
+        /// Управление дозатором Воск.
+        /// </summary>
         public DelegateCommand DispenserVoskCommand =>
-            _dispenserVoskCommand ?? (_dispenserVoskCommand = new DelegateCommand(ExecuteDispenserVosk));
+            _dispenserVoskCommand ??= new DelegateCommand(ExecuteDispenserVosk);
 
         private void ExecuteDispenserVosk()
         {
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                new byte[] { 1 },
-                _globalSettings.ControlBlockAddress,
-                (byte)Command.SetDispenserVosk));
+            DispenserVoskBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetDispenserVosk(State.On));
         }
 
         #endregion
@@ -259,15 +319,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _dispenserFoamCommand;
 
+        /// <summary>
+        /// Управление дозатором Пена.
+        /// </summary>
         public DelegateCommand DispenserFoamCommand =>
-            _dispenserFoamCommand ?? (_dispenserFoamCommand = new DelegateCommand(ExecuteDispenserPena));
+            _dispenserFoamCommand ??= new DelegateCommand(ExecuteDispenserPena);
 
         private void ExecuteDispenserPena()
         {
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                new byte[] { 1 },
-                _globalSettings.ControlBlockAddress,
-                (byte)Command.SetDispenserFoam));
+            DispenserFoamBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetDispenserFoam(State.On));
         }
 
         #endregion
@@ -276,15 +337,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _valveInsectCommand;
 
+        /// <summary>
+        /// Управление клапаном Средство от насекомых.
+        /// </summary>
         public DelegateCommand ValveInsectCommand =>
-            _valveInsectCommand ?? (_valveInsectCommand = new DelegateCommand(ExecuteValveInsect));
+            _valveInsectCommand ??= new DelegateCommand(ExecuteValveInsect);
 
         private void ExecuteValveInsect()
         {
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                new byte[] { 1 },
-                _globalSettings.ControlBlockAddress,
-                (byte)Command.SetValveInsect));
+            ValveInsectBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetValveInsect(State.On));
         }
 
         #endregion
@@ -293,15 +355,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _valveAirCommand;
 
+        /// <summary>
+        /// Управление клапаном Воздух.
+        /// </summary>
         public DelegateCommand ValveAirCommand =>
-            _valveAirCommand ?? (_valveAirCommand = new DelegateCommand(ExecuteValveAir));
+            _valveAirCommand ??= new DelegateCommand(ExecuteValveAir);
 
         private void ExecuteValveAir()
         {
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                new byte[] { 1 },
-                _globalSettings.ControlBlockAddress,
-                (byte)Command.SetValveAir));
+            ValveAirBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetValveAir(State.On));
         }
 
         #endregion
@@ -310,15 +373,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _valveFoamCommand;
 
+        /// <summary>
+        /// Управление клапаном Пена.
+        /// </summary>
         public DelegateCommand ValveFoamCommand =>
-            _valveFoamCommand ?? (_valveFoamCommand = new DelegateCommand(ExecuteValveFoamCommand));
+            _valveFoamCommand ??= new DelegateCommand(ExecuteValveFoamCommand);
 
         private void ExecuteValveFoamCommand()
         {
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                new byte[] { 1 },
-                _globalSettings.ControlBlockAddress,
-                (byte)Command.SetValveFoam));
+            ValveFoamBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetValveFoam(State.On));
         }
 
         #endregion
@@ -327,14 +391,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _valveOsmosCommand;
 
+        /// <summary>
+        /// Управление клапаном Осмос.
+        /// </summary>
         public DelegateCommand ValveOsmosCommand =>
-            _valveOsmosCommand ?? (_valveOsmosCommand = new DelegateCommand(ExecuteValveOsmos));
+            _valveOsmosCommand ??= new DelegateCommand(ExecuteValveOsmos);
 
         private void ExecuteValveOsmos()
         {
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                new byte[] { 1 }, _globalSettings.ControlBlockAddress,
-                ((byte)Command.SetValveOsmos)));
+            ValveOsmosBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetValveOsmos(State.On));
         }
 
         #endregion
@@ -343,14 +409,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _coolWaterCommand;
 
+        /// <summary>
+        /// Управление клапаном Холодная вода.
+        /// </summary>
         public DelegateCommand CoolWaterCommand =>
-            _coolWaterCommand ?? (_coolWaterCommand = new DelegateCommand(ExecuteCoolWater));
+            _coolWaterCommand ??= new DelegateCommand(ExecuteCoolWater);
 
         private void ExecuteCoolWater()
         {
-            byte[] temp = new byte[1];
-            temp[0] = 1;
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(temp, 2, 0x03));
+            CoolWaterBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetValveCoolWater(State.On));
         }
 
         #endregion
@@ -359,17 +427,16 @@ namespace ServiceTools.Modules.ControlBlock.ViewModels
 
         private DelegateCommand _valveHotWaterCommand;
 
+        /// <summary>
+        /// Управление клапаном Горячая вода.
+        /// </summary>
         public DelegateCommand ValveHotWaterCommand =>
-            _valveHotWaterCommand ?? (_valveHotWaterCommand = new DelegateCommand(ExecuteValveHotWater));
+            _valveHotWaterCommand ??= new DelegateCommand(ExecuteValveHotWater);
 
         private void ExecuteValveHotWater()
         {
-            byte[] temp = new byte[1];
-            temp[0] = 0x01;
-            _messageQueue.AddMessageToQueue(_messageTools.ConstructorCommand(
-                temp,
-                _globalSettings.ControlBlockAddress,
-                (byte)Command.SetValveHotWater));
+            HotWaterBrush = Brushes.Yellow;
+            _messageQueue.AddMessageToQueue(_requestsControlBlock.SetValveHotWater(State.On));
         }
 
         #endregion
