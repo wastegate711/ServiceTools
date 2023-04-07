@@ -16,6 +16,8 @@ using Prism.Modularity;
 using SerialPortService.Abstractions;
 using SerialPortService.Services;
 using ServiceTools.Core.Extensions;
+using ServiceTools.Services.ControlBlock;
+using ServiceTools.Services.ControlBlock.Interfaces;
 
 namespace ServiceTools
 {
@@ -42,6 +44,7 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<IPortManager, PortManager>();
             containerRegistry.RegisterSingleton<IReceivedData, ReceivedData>();
             containerRegistry.Register<IResponseSortingPult, ResponseSortingPult>();
+            containerRegistry.Register<IResponseSortingControlBlock, ResponseSortingControlBlock>();
             containerRegistry.RegisterSingleton<ControlBlock>();
             containerRegistry.Register<IMessageTools, MessageTools>();
             containerRegistry.Register<MainWindowViewModel>();
