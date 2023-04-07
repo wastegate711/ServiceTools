@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ServiceTools.Modules.ControlBlock.Views.ViewA"
+﻿<UserControl x:Class="ServiceTools.Modules.ControlBlock.Views.ViewControlBlock"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ServiceTools.Modules.ControlBlock.Views"
@@ -6,21 +6,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              xmlns:viewmodels="clr-namespace:ServiceTools.Modules.ControlBlock.ViewModels"
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="500" d:DesignWidth="500"
              xmlns:prism="http://prismlibrary.com/" 
-             d:DataContext="{d:DesignInstance Type=viewmodels:ViewAViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewmodels:ViewControlBlockViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="False" >
     <DockPanel>
         <StackPanel DockPanel.Dock="Top"
                     Orientation="Vertical">
-            <!--Кнопка Запрос серийного номера-->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Запрос SN"/>
-                <Button Height="10"
-                        Width="30"
-                        Background="{Binding SerialNumberBrush}"
-                        Command="{Binding SerialNumberCommand}"/>
-            </StackPanel>
             <!--Клапан сброса-->
             <StackPanel Orientation="Horizontal">
                 <Label Content="Клапан сброса"/>
@@ -109,6 +101,10 @@
             <StackPanel Orientation="Horizontal">
                 <Label Content="Версия программы:"/>
                 <TextBlock Text="{Binding VersionSwPult}"/>
+                <Button Width="30"
+                        Height="10"
+                        Background="{Binding GetSoftwareVersionBrush}"
+                        Command="{Binding VersionSoftwareCommand}"/>
             </StackPanel>
             <!--Серийный номер-->
             <StackPanel Orientation="Horizontal">
@@ -116,6 +112,10 @@
                        VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding SerialNumber, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center"/>
+                <Button Height="10"
+                        Width="30"
+                        Background="{Binding SerialNumberBrush}"
+                        Command="{Binding SerialNumberCommand}"/>
             </StackPanel>
             <!--Дата/Время-->
             <StackPanel Orientation="Horizontal">

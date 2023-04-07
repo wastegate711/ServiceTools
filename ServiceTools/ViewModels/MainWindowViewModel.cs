@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Prism.Commands;
-using Prism.Modularity;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Modules.PultBlock.ViewModels;
@@ -13,15 +11,15 @@ namespace ServiceTools.ViewModels
     {
         private readonly IPortManager _portManager;
         private readonly IReceivedData _receivedData;
-        private readonly ViewAViewModel _viewAViewModel;
+        private readonly ViewControlBlockViewModel _viewControlBlockViewModel;
         private readonly ViewPultViewModel _pultViewModel;
 
         public MainWindowViewModel(IPortManager portManager, IReceivedData receivedData,
-            ViewAViewModel viewAViewModel, ViewPultViewModel pultViewModel)
+            ViewControlBlockViewModel controlBlockViewModel, ViewPultViewModel pultViewModel)
         {
             _portManager = portManager;
             _receivedData = receivedData;
-            _viewAViewModel = viewAViewModel;
+            _viewControlBlockViewModel = controlBlockViewModel;
             _pultViewModel = pultViewModel;
         }
 
@@ -48,8 +46,8 @@ namespace ServiceTools.ViewModels
             _receivedData.Initialization();
             _pultViewModel.SerialNumber = "<=========>";
             string n = _pultViewModel.SerialNumber;
-            _viewAViewModel.SerialNumber = "0987654321вап";
-            string b = _viewAViewModel.SerialNumber;
+            _viewControlBlockViewModel.SerialNumber = "0987654321вап";
+            string b = _viewControlBlockViewModel.SerialNumber;
         }
 
         #endregion

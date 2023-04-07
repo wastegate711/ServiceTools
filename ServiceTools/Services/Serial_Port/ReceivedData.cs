@@ -3,6 +3,7 @@ using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.SerialPort.Tools;
 using System.Diagnostics;
+using ServiceTools.Services.ControlBlock.Interfaces;
 
 namespace ServiceTools.Services.Serial_Port
 {
@@ -21,13 +22,17 @@ namespace ServiceTools.Services.Serial_Port
     {
         private readonly IPortManager _portManager;
         private readonly IResponseSortingPult _responseSortingPult;
+        private readonly IResponseSortingControlBlock _responseSortingControlBlock;
         private const byte ControlBlockAddr = 0x02; //адрес блока управления
         private const byte PultBlockAddr = 0x03; //адрес пульта
 
-        public ReceivedData(IPortManager portManager, IResponseSortingPult responseSortingPult)
+        public ReceivedData(IPortManager portManager,
+            IResponseSortingPult responseSortingPult,
+            IResponseSortingControlBlock responseSortingControlBlock)
         {
             _portManager = portManager;
             _responseSortingPult = responseSortingPult;
+            _responseSortingControlBlock = responseSortingControlBlock;
         }
 
         public void Initialization()
@@ -39,7 +44,7 @@ namespace ServiceTools.Services.Serial_Port
         {
             if (aData.CompareCrc16())
             {
-                switch (aData[1])//определяем от какого блока пришли данные.
+                switch (aData[1]) //определяем от какого блока пришли данные.
                 {
                     case ControlBlockAddr:
                         Debug.Write("Входящие данные БУ<--\t");
@@ -50,7 +55,7 @@ namespace ServiceTools.Services.Serial_Port
                         }
 
                         Debug.WriteLine("");
-
+                        _responseSortingControlBlock.IncomingSorting(aData);
 
                         break;
                     case PultBlockAddr:

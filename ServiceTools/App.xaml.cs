@@ -1,14 +1,8 @@
-﻿using Prism.Ioc;
-using Prism.Modularity;
-using ServiceTools.Modules.ControlBlock;
+﻿using ServiceTools.Modules.ControlBlock;
 using ServiceTools.Views;
-using System.Windows;
 using ServiceTools.Modules.PultBlock;
 using ServiceTools.Services.SerialPort.Interfaces;
 using ServiceTools.Services.SerialPort.Services;
-using SerialPortService.Abstractions;
-using SerialPortService.Services;
-using ServiceTools.Core.Extensions;
 using ServiceTools.Services.Serial_Port;
 using ServiceTools.Services.Pult;
 using ServiceTools.Services.Pult.Interfaces;
@@ -16,6 +10,14 @@ using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Models;
 using ServiceTools.Services.SerialPort.Tools;
 using ServiceTools.ViewModels;
+using System.Windows;
+using Prism.Ioc;
+using Prism.Modularity;
+using SerialPortService.Abstractions;
+using SerialPortService.Services;
+using ServiceTools.Core.Extensions;
+using ServiceTools.Services.ControlBlock;
+using ServiceTools.Services.ControlBlock.Interfaces;
 
 namespace ServiceTools
 {
@@ -24,18 +26,14 @@ namespace ServiceTools
     /// </summary>
     public partial class App
     {
-        public static IContainerProvider ContainerIoC { get; private set; }
-
         protected override Window CreateShell()
         {
             var moduleManager = Container.Resolve<IModuleManager>();
             moduleManager.LoadModule("ViewPult");
-            moduleManager.LoadModule("ViewA");
+            moduleManager.LoadModule("ViewControlBlock");
             MainWindow mainWindow =Container.Resolve<MainWindow>();
-           // mainWindow.DataContext = Container.Resolve(typeof(MainWindowViewModel));
-            ContainerIoC = Container;
 
-            return mainWindow;
+           return mainWindow;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -45,10 +43,8 @@ namespace ServiceTools
             containerRegistry.RegisterSingleton<ISerialPortService, Serial_Port>();
             containerRegistry.RegisterSingleton<IPortManager, PortManager>();
             containerRegistry.RegisterSingleton<IReceivedData, ReceivedData>();
-            //containerRegistry.RegisterSingleton<ViewPultViewModel>();
             containerRegistry.Register<IResponseSortingPult, ResponseSortingPult>();
-            //containerRegistry.RegisterSingleton<ViewAViewModel>();//TODO - Переименовать
-            //containerRegistry.RegisterSingleton<Pult>();
+            containerRegistry.Register<IResponseSortingControlBlock, ResponseSortingControlBlock>();
             containerRegistry.RegisterSingleton<ControlBlock>();
             containerRegistry.Register<IMessageTools, MessageTools>();
             containerRegistry.Register<MainWindowViewModel>();
@@ -57,7 +53,7 @@ namespace ServiceTools
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ControlBlockModule>("ViewA").Initialize();//TODO - Переименовать
+            moduleCatalog.AddModule<ControlBlockModule>("ViewControlBlock").Initialize();
             moduleCatalog.AddModule<PultBlockModule>("ViewPult").Initialize();
         }
 

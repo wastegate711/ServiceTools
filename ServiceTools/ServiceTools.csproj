@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Modules\ServiceTools.Modules.ControlBlock\ServiceTools.Modules.ControlBlock.csproj" />
     <ProjectReference Include="..\Modules\ServiceTools.Modules.PultBlock\ServiceTools.Modules.PultBlock.csproj" />
+    <ProjectReference Include="..\Services\ServiceTools.Services.PultBlock\ServiceTools.Services.PultBlock.csproj" />
     <ProjectReference Include="..\Services\ServiceTools.Services.SerialPort\ServiceTools.Services.SerialPort.csproj" />
   </ItemGroup>
   <ItemGroup>
