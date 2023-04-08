@@ -18,6 +18,7 @@ using SerialPortService.Services;
 using ServiceTools.Core.Extensions;
 using ServiceTools.Services.ControlBlock;
 using ServiceTools.Services.ControlBlock.Interfaces;
+using TabSettings;
 
 namespace ServiceTools
 {
@@ -31,9 +32,10 @@ namespace ServiceTools
             var moduleManager = Container.Resolve<IModuleManager>();
             moduleManager.LoadModule("ViewPult");
             moduleManager.LoadModule("ViewControlBlock");
-            MainWindow mainWindow =Container.Resolve<MainWindow>();
+            moduleManager.LoadModule("TabSettings");
+            MainWindow mainWindow = Container.Resolve<MainWindow>();
 
-           return mainWindow;
+            return mainWindow;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -55,6 +57,7 @@ namespace ServiceTools
         {
             moduleCatalog.AddModule<ControlBlockModule>("ViewControlBlock").Initialize();
             moduleCatalog.AddModule<PultBlockModule>("ViewPult").Initialize();
+            moduleCatalog.AddModule<TabSettingsModule>("TabSettings");
         }
 
         protected override void ConfigureViewModelLocator()
