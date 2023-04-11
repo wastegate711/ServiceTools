@@ -34,13 +34,16 @@
         </StatusBar>
 
         <!--Вкладки-->
-        <TabControl SelectedIndex="1">
+        <TabControl SelectedIndex="2">
             <!--Вкладка Блок управления-->
             <TabItem prism:RegionManager.RegionName="{x:Static core:RegionNames.ControlBlockTab}"
                      Header="Блок управления"/>
             <!--Вкладка Пульт-->
             <TabItem prism:RegionManager.RegionName="{x:Static core:RegionNames.PultBlockTab}"
                      Header="Пульт"/>
+            <!--Вкладка Настройки-->
+            <TabItem prism:RegionManager.RegionName="{x:Static core:RegionNames.TabSettings}"
+                     Header="Настройки"/>
         </TabControl>
     </DockPanel>
 </Window>

@@ -1,9 +1,12 @@
-﻿using Prism.Commands;
+﻿using System.Collections.ObjectModel;
+using Prism.Commands;
 using Prism.Mvvm;
+using SerialPortService.Services;
 using ServiceTools.Modules.ControlBlock.ViewModels;
 using ServiceTools.Modules.PultBlock.ViewModels;
 using ServiceTools.Services.Serial_Port.Interfaces;
 using ServiceTools.Services.SerialPort.Interfaces;
+using TabSettings.ViewModels;
 
 namespace ServiceTools.ViewModels
 {
@@ -13,14 +16,20 @@ namespace ServiceTools.ViewModels
         private readonly IReceivedData _receivedData;
         private readonly ViewControlBlockViewModel _viewControlBlockViewModel;
         private readonly ViewPultViewModel _pultViewModel;
+        private readonly ViewTabSettingsViewModel _tabSettingsViewModel;
 
-        public MainWindowViewModel(IPortManager portManager, IReceivedData receivedData,
-            ViewControlBlockViewModel controlBlockViewModel, ViewPultViewModel pultViewModel)
+        public MainWindowViewModel(
+            IPortManager portManager,
+            IReceivedData receivedData,
+            ViewControlBlockViewModel controlBlockViewModel,
+            ViewPultViewModel pultViewModel,
+            ViewTabSettingsViewModel tabSettingsViewModel)
         {
             _portManager = portManager;
             _receivedData = receivedData;
             _viewControlBlockViewModel = controlBlockViewModel;
             _pultViewModel = pultViewModel;
+            _tabSettingsViewModel = tabSettingsViewModel;
         }
 
         #region Заголовок окна
@@ -42,12 +51,10 @@ namespace ServiceTools.ViewModels
 
         private void InitializeStartApp()
         {
-            _portManager.Initialization();//инициализация таймеров и СОМ порта
-            _receivedData.Initialization();
-            _pultViewModel.SerialNumber = "<=========>";
-            string n = _pultViewModel.SerialNumber;
-            _viewControlBlockViewModel.SerialNumber = "0987654321вап";
-            string b = _viewControlBlockViewModel.SerialNumber;
+            //_portManager.Initialization();//инициализация таймеров и СОМ порта
+            //_receivedData.Initialization();
+            var t = Serial_Port.GetPortName();
+            _tabSettingsViewModel.SerialPortInSystem.AddRange(Serial_Port.GetPortName());
         }
 
         #endregion

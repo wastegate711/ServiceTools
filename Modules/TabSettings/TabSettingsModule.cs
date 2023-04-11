@@ -19,12 +19,14 @@ namespace TabSettings
         public void OnInitialized(IContainerProvider containerProvider)
         {
             _regionManager.RequestNavigate(RegionNames.TabSettings, "TabSettings");
+            _regionManager.RegisterViewWithRegion(RegionNames.TabSettings, typeof(ViewTabSettings));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<ViewTabSettings>();
             containerRegistry.Register<ViewTabSettings>();
-            containerRegistry.Register<ViewTabSettingsViewModel>();
+            containerRegistry.RegisterSingleton<ViewTabSettingsViewModel>();
         }
     }
 }

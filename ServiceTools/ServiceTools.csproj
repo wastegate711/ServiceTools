@@ -4,7 +4,11 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Images\logo.ico" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FontAwesome5.WPF" Version="1.0.5" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
@@ -14,8 +18,5 @@
     <ProjectReference Include="..\Modules\ServiceTools.Modules.PultBlock\ServiceTools.Modules.PultBlock.csproj" />
     <ProjectReference Include="..\Modules\TabSettings\TabSettings.csproj" />
     <ProjectReference Include="..\Services\ServiceTools.Services.SerialPort\ServiceTools.Services.SerialPort.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Pult\Helpers\" />
   </ItemGroup>
 </Project>
